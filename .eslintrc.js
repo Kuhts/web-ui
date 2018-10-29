@@ -99,6 +99,7 @@ module.exports = {
     'react/forbid-prop-types': 0,
     'react/jsx-first-prop-new-line': 0,//[2, 'multiline'],
     'react/jsx-filename-extension': 0,
+    'react/jsx-indent': [2, 2],
     'react/jsx-no-target-blank': 0,
     'react/jsx-uses-vars': 2,
     'react/no-array-index-key': 0,

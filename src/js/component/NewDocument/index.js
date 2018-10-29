@@ -12,6 +12,7 @@ import {
 } from 'unstated'
 import {
   DocumentsContainer,
+  Local,
 } from 'js/container'
 const {
   Item: FormItem,
@@ -65,8 +66,8 @@ function UnstyledNewDocument({
     //
   })
   return (
-    <Subscribe to={[Document]}>
-      {doc => (
+    <Subscribe to={[Local, Document]}>
+      {(local, doc) => (
         <Form
           onSubmit={(e) => {
             e.preventDefault()
@@ -85,7 +86,7 @@ function UnstyledNewDocument({
           className={classnames('create-new-documents', className)}
         >
           <h2>
-Create New Document&nbsp;
+            Create New Document&nbsp;
             {doc.state.loading
               ? (<Icon type="loading" />)
               : []}
@@ -111,7 +112,7 @@ Create New Document&nbsp;
               size="large"
               type="secondary"
             >
-Cancel
+            Cancel
             </Button>
             <Button
               size="large"
