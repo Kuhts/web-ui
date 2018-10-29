@@ -1,11 +1,12 @@
 module.exports = {
   collectCoverageFrom: [
-    'app/**/*.{js,jsx}',
-    '!app/**/*.test.{js,jsx}',
-    '!app/*/RbGenerated*/*.{js,jsx}',
-    '!app/app.js',
-    '!app/global-styles.js',
-    '!app/*/*/Loadable.{js,jsx}',
+    'src/**/*.{js,jsx}',
+    '!src/**/*.test.{js,jsx}',
+    '!src/*/RbGenerated*/*.{js,jsx}',
+    '!src/styles/**/*.{js,jsx}',
+    '!src/*/*/Loadable.{js,jsx}',
+    '!src/app.js',
+    '!src/backup/**/*'
   ],
   coverageThreshold: {
     global: {
@@ -15,7 +16,7 @@ module.exports = {
       lines: 98,
     },
   },
-  moduleDirectories: ['node_modules', 'app'],
+  moduleDirectories: ['node_modules', 'src'],
   moduleNameMapper: {
     '.*\\.(css|less|styl|scss|sass)$': '<rootDir>/internals/mocks/cssModule.js',
     '.*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
@@ -23,6 +24,6 @@ module.exports = {
   },
   setupTestFrameworkScriptFile: '<rootDir>/internals/testing/test-bundler.js',
   setupFiles: ['raf/polyfill', '<rootDir>/internals/testing/enzyme-setup.js'],
-  testRegex: 'tests/.*\\.test\\.js$',
+  testRegex: '.*\\.test\\.js$',
   snapshotSerializers: ['enzyme-to-json/serializer'],
-};
+}

@@ -4,9 +4,9 @@
 
 /* eslint strict: ["off"] */
 
-'use strict';
+'use strict'
 
-const componentExists = require('../utils/componentExists');
+const componentExists = require('../utils/componentExists')
 
 module.exports = {
   description: 'Add an unconnected component',
@@ -19,7 +19,7 @@ module.exports = {
       choices: () => [
         'Stateless Function',
         'React.PureComponent',
-        'React.Component',
+        'React.Component'
       ],
     },
     {
@@ -27,14 +27,14 @@ module.exports = {
       name: 'name',
       message: 'What should it be called?',
       default: 'Button',
-      validate: value => {
+      validate: (value) => {
         if (/.+/.test(value)) {
           return componentExists(value)
             ? 'A component or container with this name already exists'
-            : true;
+            : true
         }
 
-        return 'The name is required';
+        return 'The name is required'
       },
     },
     {
@@ -48,19 +48,19 @@ module.exports = {
       name: 'wantLoadable',
       default: false,
       message: 'Do you want to load the component asynchronously?',
-    },
+    }
   ],
-  actions: data => {
+  actions: (data) => {
     // Generate index.js and index.test.js
-    let componentTemplate;
+    let componentTemplate
 
     switch (data.type) {
       case 'Stateless Function': {
-        componentTemplate = './component/stateless.js.hbs';
-        break;
+        componentTemplate = './component/stateless.js.hbs'
+        break
       }
       default: {
-        componentTemplate = './component/class.js.hbs';
+        componentTemplate = './component/class.js.hbs'
       }
     }
 
@@ -76,8 +76,8 @@ module.exports = {
         path: '../../app/components/{{properCase name}}/tests/index.test.js',
         templateFile: './component/test.js.hbs',
         abortOnFail: true,
-      },
-    ];
+      }
+    ]
 
     // If they want a i18n messages file
     if (data.wantMessages) {
@@ -86,7 +86,7 @@ module.exports = {
         path: '../../app/components/{{properCase name}}/messages.js',
         templateFile: './component/messages.js.hbs',
         abortOnFail: true,
-      });
+      })
     }
 
     // If want Loadable.js to load the component asynchronously
@@ -96,14 +96,14 @@ module.exports = {
         path: '../../app/components/{{properCase name}}/Loadable.js',
         templateFile: './component/loadable.js.hbs',
         abortOnFail: true,
-      });
+      })
     }
 
     actions.push({
       type: 'prettify',
       path: '/components/',
-    });
+    })
 
-    return actions;
+    return actions
   },
-};
+}

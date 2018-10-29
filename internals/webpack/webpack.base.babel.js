@@ -2,14 +2,15 @@
  * COMMON WEBPACK CONFIGURATION
  */
 
-const path = require('path');
-const webpack = require('webpack');
+const path = require('path')
+const webpack = require('webpack')
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 
 // Remove this line once the following warning goes away (it was meant for webpack loader authors not users):
 // 'DeprecationWarning: loaderUtils.parseQuery() received a non-string value which can be problematic,
 // see https://github.com/webpack/loader-utils/issues/56 parseQuery() will be replaced with getOptions()
 // in the next major version of loader-utils.'
-process.noDeprecation = true;
+process.noDeprecation = true
 
 module.exports = options => ({
   mode: options.mode,
@@ -20,7 +21,7 @@ module.exports = options => ({
       path: path.resolve(process.cwd(), 'build'),
       publicPath: '/',
     },
-    options.output,
+    options.output
   ), // Merge with env dependent settings
   optimization: options.optimization,
   module: {
@@ -37,9 +38,9 @@ module.exports = options => ({
         // Preprocess our own .css files
         // This is the place to add your own loaders (e.g. sass/less etc.)
         // for a list of loaders, see https://webpack.js.org/loaders/#styling
-        test: /\.css$/,
+        test: /\.(sc|sa|c)ss$/,
         exclude: /node_modules/,
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         // Preprocess 3rd party .css files located in node_modules
@@ -61,7 +62,7 @@ module.exports = options => ({
               limit: 10 * 1024,
               noquotes: true,
             },
-          },
+          }
         ],
       },
       {
@@ -95,7 +96,7 @@ module.exports = options => ({
                 speed: 4,
               },
             },
-          },
+          }
         ],
       },
       {
@@ -110,7 +111,7 @@ module.exports = options => ({
             limit: 10000,
           },
         },
-      },
+      }
     ],
   },
   plugins: options.plugins.concat([
@@ -122,13 +123,22 @@ module.exports = options => ({
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
     }),
+    new MomentLocalesPlugin({
+      localesToKeep: ['es-us', 'en'],
+    })
+    // new webpack.IgnorePlugin(/^\.\.\/create\/local$/, /moment$/),
   ]),
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM',
+    immutable: 'Immutable',
+  },
   resolve: {
-    modules: ['node_modules', 'app'],
+    modules: ['node_modules', 'src'],
     extensions: ['.js', '.jsx', '.react.js'],
     mainFields: ['browser', 'jsnext:main', 'main'],
   },
   devtool: options.devtool,
   target: 'web', // Make web variables accessible to webpack, e.g. window
   performance: options.performance || {},
-});
+})

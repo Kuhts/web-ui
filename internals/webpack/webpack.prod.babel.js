@@ -1,11 +1,11 @@
 // Important modules this config uses
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackPwaManifest = require('webpack-pwa-manifest');
-const OfflinePlugin = require('offline-plugin');
-const { HashedModuleIdsPlugin } = require('webpack');
-const TerserPlugin = require('terser-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const WebpackPwaManifest = require('webpack-pwa-manifest')
+const OfflinePlugin = require('offline-plugin')
+const { HashedModuleIdsPlugin, } = require('webpack')
+const TerserPlugin = require('terser-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
 
 module.exports = require('./webpack.base.babel')({
   mode: 'production',
@@ -13,7 +13,7 @@ module.exports = require('./webpack.base.babel')({
   // In production, we skip all hot-reloading stuff
   entry: [
     require.resolve('react-app-polyfill/ie11'),
-    path.join(process.cwd(), 'app/app.js'),
+    path.join(process.cwd(), 'app', 'app.js')
   ],
 
   // Utilize long-term caching by adding content hashes (not compilation hashes) to compiled assets
@@ -41,7 +41,7 @@ module.exports = require('./webpack.base.babel')({
         parallel: true,
         cache: true,
         sourceMap: true,
-      }),
+      })
     ],
     nodeEnv: 'production',
     sideEffects: true,
@@ -73,7 +73,7 @@ module.exports = require('./webpack.base.babel')({
   plugins: [
     // Minify and optimize the index.html
     new HtmlWebpackPlugin({
-      template: 'app/index.html',
+      template: 'src/index.html',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -137,7 +137,7 @@ module.exports = require('./webpack.base.babel')({
           src: path.resolve('app/images/icon-512x512.png'),
           sizes: [120, 152, 167, 180],
           ios: true,
-        },
+        }
       ],
     }),
 
@@ -145,11 +145,10 @@ module.exports = require('./webpack.base.babel')({
       hashFunction: 'sha256',
       hashDigest: 'hex',
       hashDigestLength: 20,
-    }),
+    })
   ],
 
   performance: {
-    assetFilter: assetFilename =>
-      !/(\.map$)|(^(main\.|favicon\.))/.test(assetFilename),
+    assetFilter: assetFilename => !/(\.map$)|(^(main\.|favicon\.))/.test(assetFilename),
   },
-});
+})
