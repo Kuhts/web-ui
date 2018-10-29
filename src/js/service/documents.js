@@ -10,10 +10,10 @@ export {
   documents,
 }
 
-function getMany(body) {
+function getMany(json) {
   return fetch('api/documents', {
     method: 'get',
-    body,
+    json,
   })
 }
 

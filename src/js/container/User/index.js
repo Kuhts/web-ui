@@ -1,5 +1,5 @@
 import React from 'react'
-import { Map, fromJS, } from 'immutable'
+import { fromJS, } from 'immutable'
 import { Container, Subscribe, Provider, } from 'unstated'
 import { url, } from 'js/utils'
 import { PROVIDERS, } from 'config'
@@ -16,11 +16,10 @@ export class UserContainer extends Container {
   constructor(props) {
     super(props)
     const state = assign({
-      data: Map(),
+      data: fromJS({}),
       providers,
       loading: true,
-    },
-    props)
+    }, props)
     this.state = state
   }
 
@@ -43,15 +42,15 @@ export class UserContainer extends Container {
         .then((data) => {
           delete this.publicProfile
           return this.setState({
-            data: Map(data),
+            data: fromJS(data),
             loading: false,
           })
         }))
   }
 
   set(path, value) {
-    const { data, } = this.state
     let nuData
+    const { data, } = this.state
     const val = fromJS(value)
     if (path.length) {
       nuData = data.setIn(path, value ? val : value)
@@ -98,7 +97,7 @@ export class UserContainer extends Container {
     }
     const loggingOut = user
       .logout()
-      .then(this.login, () => {})
+      .then(this.login, () => this.login())
       .then(() => {
         delete this.loggingOut
       })
@@ -120,7 +119,7 @@ export class UserContainer extends Container {
   }
 
   check() {
-    return user.check().then(this.login, this.login)
+    return user.check().then(this.login, () => this.login())
   }
 
   closePopup = () => {

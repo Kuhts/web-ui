@@ -62,7 +62,7 @@ export class DocumentsContainer extends ImmutableContainer {
     }) => this.setState(({
       records,
     }) => ({
-      records: records.concat(data),
+      records: data,
       total,
     })))
   }

@@ -33,6 +33,10 @@ const PROVIDERS = [
     name: 'Medium',
     post: true,
     disabled: true,
+  },
+  {
+    provider: 'reddit',
+    name: 'Reddit',
   }
 ]
 

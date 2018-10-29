@@ -2,6 +2,9 @@ import React from 'react'
 import classnames from 'classnames'
 import styled from 'react-emotion'
 import {
+  fromJS,
+} from 'immutable'
+import {
   Input,
   Form,
   Button,
@@ -13,11 +16,15 @@ import {
 import {
   DocumentsContainer,
   Local,
+  Routes,
 } from 'js/container'
 const {
   Item: FormItem,
 } = Form
 
+const Document = new DocumentsContainer({
+  data: fromJS({}),
+})
 const formItemLayout = {
   labelCol: {
     xs: { span: 24, },
@@ -58,72 +65,110 @@ export {
 function UnstyledNewDocument({
   form,
   className,
+  onCancel,
 }) {
   const {
     getFieldDecorator,
   } = form
-  const Document = new DocumentsContainer({
-    //
-  })
+  const namePath = ['newdocument', 'name']
   return (
     <Subscribe to={[Local, Document]}>
-      {(local, doc) => (
-        <Form
-          onSubmit={(e) => {
-            e.preventDefault()
-            return form.validateFieldsAndScroll((err, values) => {
-              if (err) {
-                return console.error(err) // eslint-disable-line
-              }
-              doc.setState(() => ({
-                loading: true,
-              }))
-              return doc.create(values).then(() => doc.setState(() => ({
-                loading: false,
-              })))
-            })
-          }}
-          className={classnames('create-new-documents', className)}
-        >
-          <h2>
-            Create New Document&nbsp;
-            {doc.state.loading
-              ? (<Icon type="loading" />)
-              : []}
-          </h2>
-          <FormItem
-            {...formItemLayout}
-            label="Name"
+      {(local, doc) => {
+        const {
+          state,
+        } = doc
+        const {
+          loading,
+          saved,
+        } = state
+        const url = `/app/document/${doc.getIn('id')}`
+        return (
+          <Form
+            className={classnames('create-new-documents', className)}
+            onSubmit={(e) => {
+              e.preventDefault()
+              return form.validateFieldsAndScroll((err, values) => {
+                if (err) {
+                  return Promise.resolve()
+                }
+                doc.setState(() => ({
+                  loading: true,
+                }))
+                return doc.create(values).then((data) => {
+                  Local.save(namePath, null)
+                  return doc.setState(() => ({
+                    loading: false,
+                    saved: true,
+                    data: fromJS(data),
+                  }))
+                })
+              })
+            }}
           >
-            {getFieldDecorator('name', {
-              rules: [{
-                //   type: 'email',
-                //   message: 'The input is not valid E-mail!',
-                // }, {
-                required: true,
-                message: 'Please input a name for your new Document.',
-              }],
-            })(
-              <Input size="large" />
-            )}
-          </FormItem>
-          <FormItem {...tailFormItemLayout}>
-            <Button
-              size="large"
-              type="secondary"
+            <h2>
+              Create New Document&nbsp;
+              {loading
+                ? (<Icon type="loading" />)
+                : []}
+            </h2>
+            <FormItem
+              {...formItemLayout}
+              label="Name"
             >
-            Cancel
-            </Button>
-            <Button
-              size="large"
-              type="primary"
-              htmlType="submit"
-            >
-Save
-            </Button>
-          </FormItem>
-        </Form>
-      )}
+              {getFieldDecorator('name', {
+                initialValue: local.getIn(namePath),
+                rules: [{
+                  //   type: 'email',
+                  //   message: 'The input is not valid E-mail!',
+                  // }, {
+                  required: true,
+                  message: 'Please input a name for your new Document.',
+                }],
+              })(
+                <Input
+                  size="large"
+                  onChange={({
+                    target,
+                  }) => local.save(namePath, target.value)}
+                />
+              )}
+            </FormItem>
+            <FormItem {...tailFormItemLayout}>
+              <Button
+                size="large"
+                type="secondary"
+                onClick={saved ? reset : onCancel}
+              >
+                {saved ? 'Reset' : 'Cancel'}
+              </Button>
+              <Button
+                size="large"
+                type="primary"
+                htmlType="submit"
+                disabled={saved}
+              >
+                Save
+              </Button>
+              <Button
+                size="large"
+                type="secondary"
+                disabled={!saved}
+                onClick={() => Routes.push(url)}
+              >
+                Open
+              </Button>
+            </FormItem>
+          </Form>
+        )
+
+        function reset() {
+          Local.save(namePath, null)
+          Document.setState({
+            data: fromJS({}),
+            saved: false,
+          })
+        }
+      }}
     </Subscribe>
   )
 }

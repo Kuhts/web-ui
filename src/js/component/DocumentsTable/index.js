@@ -4,6 +4,9 @@ import React, {
 // import {
 //   Map,
 // } from 'immutable'
+import {
+  NavLink,
+} from 'react-router-dom'
 import styled from 'react-emotion'
 // import classnames from 'classnames'
 import {
@@ -67,18 +70,23 @@ class UnstyledDocumentsTable extends Component {
           })
         }
       },
-      render: (text) => {
+      render: (text, row, index) => {
         const {
           searchText,
         } = this.state
-        return searchText ? (
-          <span>
-            {text.split(new RegExp(`(?<=${searchText})|(?=${searchText})`, 'i')).map((fragment, i) => (
-              fragment.toLowerCase() === searchText.toLowerCase()
-                ? <span key={`${text}-${i}`} className="highlight">{fragment}</span>
-                : fragment))}
-          </span>
-        ) : text
+        const url = `/app/document/${row.pathname}`
+        return (
+          <NavLink to={url}>
+            {searchText ? (
+              <span>
+                {text.split(new RegExp(`(?<=${searchText})|(?=${searchText})`, 'i')).map((fragment, i) => (
+                  fragment.toLowerCase() === searchText.toLowerCase()
+                    ? <span key={`${text}-${i}`} className="highlight">{fragment}</span>
+                    : fragment))}
+              </span>
+            ) : text}
+          </NavLink>
+        )
       },
     }, {
       title: 'Author',
@@ -87,12 +95,12 @@ class UnstyledDocumentsTable extends Component {
       // width: 250,
     }, {
       title: 'Created At',
-      dataIndex: 'createdAt',
+      dataIndex: 'created_at',
       key: 'createdAt',
       // width: 250,
     }, {
       title: 'Last Modified',
-      dataIndex: 'modifiedAt',
+      dataIndex: 'updated_at',
       key: 'modifiedAt',
       adjustsWidth: false,
       // width: 200,
@@ -153,16 +161,14 @@ class UnstyledDocumentsTable extends Component {
     this.setState({
       loading: true,
     })
-    return Documents.access(params).then(({
-      data: dataSource,
-      total,
-    }) => this.setState(({
+    return Documents.access(params).then(data => this.setState(({
       pagination,
     }) => ({
       loading: false,
       pagination,
-      dataSource,
-    })), () => this.setState(() => ({
+      dataSource: Documents.records(),
+    })),
+    () => this.setState(() => ({
       loading: false,
     })))
   }
@@ -242,7 +248,7 @@ class UnstyledDocumentsTable extends Component {
               size="small"
               className={className}
               columns={columns}
-              rowKey={record => record.uuid}
+              rowKey={record => record.id}
               dataSource={dataSource}
               pagination={pagination}
               loading={loading}
