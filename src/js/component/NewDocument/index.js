@@ -89,12 +89,12 @@ function UnstyledNewDocument({
               e.preventDefault()
               return form.validateFieldsAndScroll((err, values) => {
                 if (err) {
-                  return Promise.resolve()
+                  return
                 }
                 doc.setState(() => ({
                   loading: true,
                 }))
-                return doc.create(values).then((data) => {
+                doc.create(values).then((data) => {
                   Local.save(namePath, null)
                   return doc.setState(() => ({
                     loading: false,
