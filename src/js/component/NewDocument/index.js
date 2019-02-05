@@ -106,7 +106,7 @@ function UnstyledNewDocument({
             }}
           >
             <h2>
-              Create New Document&nbsp;
+              Create New Post&nbsp;
               {loading
                 ? (<Icon type="loading" />)
                 : []}

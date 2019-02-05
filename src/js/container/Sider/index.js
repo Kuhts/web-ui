@@ -59,36 +59,36 @@ const loggedOutPages = [
   }
 ]
 
-const documentPages = [
+const postPages = [
   {
     to: '/app/',
     text: 'Dashboard',
     icon: 'experiment',
-    group: 'document',
+    group: 'post',
   },
   {
-    to: '/app/document/',
+    to: '/app/post/',
     text: 'Document',
     icon: 'project',
-    group: 'document',
+    group: 'post',
   },
   {
-    to: '/app/document/edit',
+    to: '/app/post/edit',
     text: 'Edit',
     icon: 'edit',
-    group: 'document',
+    group: 'post',
   },
   {
-    to: '/app/document/suggest',
+    to: '/app/post/suggest',
     text: 'Suggest',
     icon: 'message',
-    group: 'document',
+    group: 'post',
   },
   {
-    to: '/app/document/arrange',
+    to: '/app/post/arrange',
     text: 'Arrange',
     icon: 'switcher',
-    group: 'document',
+    group: 'post',
   }
 ]
 const userPages = [
@@ -109,7 +109,7 @@ const userPages = [
 const pages = {
   public: publicPages,
   loggedOut: loggedOutPages,
-  document: documentPages,
+  post: postPages,
   user: userPages,
 }
 
@@ -121,7 +121,7 @@ export class SiderContainer extends Container {
     this.state = props
   }
 
-  toggle = collapsed => this.setState(() => ({
+  toggle = (collapsed) => this.setState(() => ({
     collapsed,
   })).then(() => Local.save(['sider', 'collapsed'], collapsed))
 
@@ -129,7 +129,7 @@ export class SiderContainer extends Container {
     selected: keyPath,
   })
 
-  openChange = open => this.setState({
+  openChange = (open) => this.setState({
     open,
   }).then(() => Local.save(['sider', 'open'], open))
 

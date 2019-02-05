@@ -17,7 +17,7 @@ export class LocalContainer extends Container {
     }
   }
 
-  getIn = (path, value) => this.state.data.getIn(path, value)
+  getIn = (path) => this.state.data.getIn(path)
 
   setIn = (path, value) => this.setState(({
     data,
@@ -56,7 +56,7 @@ export const Local = new LocalContainer(SITE_KEY, window.localStorage)
 // places that we want to Provide/Subscribe to the API Service.
 // We leave the injector flexible, so you can inject a new dependency
 // at any time, eg: snapshot testing
-export const LocalProvider = props => (
+export const LocalProvider = (props) => (
   <Provider inject={props.inject || [Local]}>{props.children}</Provider>
 )
 LocalProvider.propTypes = {
@@ -65,7 +65,7 @@ LocalProvider.propTypes = {
 }
 // We also leave the subscribe "to" flexible, so you can have full
 // control over your subscripton from outside of the module
-export const LocalSubscribe = props => (
+export const LocalSubscribe = (props) => (
   <Subscribe to={props.to || [Local]}>{props.children}</Subscribe>
 )
 LocalSubscribe.propTypes = {

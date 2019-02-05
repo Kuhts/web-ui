@@ -36,7 +36,7 @@ function UnstyledDashboard({
   return (
     <div className={className}>
       <h2>
-        Documents&nbsp;
+        Posts&nbsp;
         <NavLink to="newdocument">
           <Icon type="plus-square" />
         </NavLink>

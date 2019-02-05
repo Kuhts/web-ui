@@ -5,6 +5,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
+const ManifestPlugin = require('webpack-manifest-plugin')
 
 // Remove this line once the following warning goes away (it was meant for webpack loader authors not users):
 // 'DeprecationWarning: loaderUtils.parseQuery() received a non-string value which can be problematic,
@@ -12,7 +13,7 @@ const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 // in the next major version of loader-utils.'
 process.noDeprecation = true
 
-module.exports = options => ({
+module.exports = (options) => ({
   mode: options.mode,
   entry: options.entry,
   output: Object.assign(
@@ -125,7 +126,8 @@ module.exports = options => ({
     }),
     new MomentLocalesPlugin({
       localesToKeep: ['es-us', 'en'],
-    })
+    }),
+    new ManifestPlugin()
     // new webpack.IgnorePlugin(/^\.\.\/create\/local$/, /moment$/),
   ]),
   externals: {

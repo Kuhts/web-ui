@@ -10,10 +10,10 @@ module.exports = {
   // extends: ['airbnb', 'prettier', 'prettier/react'],
   extends: ['airbnb'],
   plugins: [
-  // 'prettier',
-  // 'redux-saga',
-  'react',
-  'jsx-a11y',
+    // 'prettier',
+    // 'redux-saga',
+    'react',
+    'jsx-a11y',
   ],
   env: {
     jest: true,
@@ -30,7 +30,9 @@ module.exports = {
   },
   rules: {
     // 'prettier/prettier': ['error', prettierOptions],
+    'default-case': 0,
     'arrow-body-style': [2, 'as-needed'],
+    'arrow-parens': [2, 'always'],
     'class-methods-use-this': 0,
     'comma-dangle': [2, {
       arrays: 'never',
@@ -96,6 +98,7 @@ module.exports = {
     'prefer-destructuring': 0,
     'react/destructuring-assignment': 0,
     'react/jsx-closing-tag-location': 0,
+    'react/jsx-closing-bracket-location': 0,
     'react/forbid-prop-types': 0,
     'react/jsx-first-prop-new-line': 0,//[2, 'multiline'],
     'react/jsx-filename-extension': 0,

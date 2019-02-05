@@ -103,9 +103,9 @@ function UnstyledSider({
                 </Menu.ItemGroup>
               </SubMenu>
               {loggedIn ? (
-                <SubMenu key="document" title="App">
+                <SubMenu key="post" title="App">
                   <Menu.ItemGroup>
-                    {sider.render('document', Item)}
+                    {sider.render('post', Item)}
                   </Menu.ItemGroup>
                 </SubMenu>
               ) : (
