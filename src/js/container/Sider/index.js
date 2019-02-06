@@ -68,7 +68,7 @@ const postPages = [
   },
   {
     to: '/app/post/',
-    text: 'Document',
+    text: 'Post',
     icon: 'project',
     group: 'post',
   },

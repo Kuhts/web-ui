@@ -13,7 +13,7 @@ const { Footer: FooterLayout, } = Layout
 const year = moment().year()
 const UnstyledFooter = ({ className, }) => (
   <FooterLayout className={className}>
-    Character&nbsp;Astronomy&nbsp;&copy;&nbsp;
+    Indefensible&nbsp;&copy;&nbsp;
     {year}
   </FooterLayout>
 )
