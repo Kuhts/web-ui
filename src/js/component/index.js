@@ -1,6 +1,7 @@
 export * from 'js/component/UpdateUsername'
 export * from 'js/component/AuthButtons'
 export * from 'js/component/Header'
+export * from 'js/component/ContentContainer'
 
 export * from 'js/component/Contact'
 export * from 'js/component/Services'

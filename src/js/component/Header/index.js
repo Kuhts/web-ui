@@ -6,6 +6,9 @@ import { Icon, Layout, Breadcrumb, } from 'antd'
 import { Subscribe, } from 'unstated'
 import styled from 'react-emotion'
 import {
+  ContentContainer,
+} from 'js/component'
+import {
   Sider,
   Paths,
   User,
@@ -34,15 +37,16 @@ const StyledHeader = styled(UnstyledHeader)`
   line-height: ${headerHeight}px;
   font-size: ${contentPadding}px;
   display: flex;
+  text-align: center;
   .profile-image {
-    display: block;
+    display: inline-block;
     border: 2px solid rgba(0, 0, 0, 0.65);
     box-sizing: border-box;
     border-radius: 50%;
     margin: ${headerVerticalPadding}px;
   }
   .profile-link {
-    display: block;
+    display: inline-block;
     border-radius: 50%;
   }
   .space-left {
@@ -76,30 +80,29 @@ function UnstyledHeader({
         const { data, } = user.state
         return (
           <Layout.Header className={className}>
-            <Icon
-              className="trigger"
-              type={sider.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-              onClick={() => sider.toggle(!sider.state.collapsed)}
-            />
-            {user.loggedIn() ? (
-              <NavLink className="profile-link space-left" to="/app/profile/">
-                <img
-                  width={profileDimension}
-                  height={profileDimension}
-                  className="profile-image"
-                  src={data.get('image')}
-                  alt={`User icon of ${data.get('name')}`}
-                />
-              </NavLink>
-            ) : (
-              []
-            )}
-            <span className="app-name space-left">Character Astronomy</span>
-            <Breadcrumb className="header-breadcrumbs space-left">
-              {paths.map(text => (
-                <BreadcrumbItem key={text}>{text}</BreadcrumbItem>
-              ))}
-            </Breadcrumb>
+            <ContentContainer>
+              <Icon
+                className="trigger"
+                type="bars"
+              />
+              {user.loggedIn() ? (
+                <NavLink className="profile-link space-left" to="/app/profile/">
+                  <img
+                    width={profileDimension}
+                    height={profileDimension}
+                    className="profile-image"
+                    src={data.get('image')}
+                    alt={`User icon of ${data.get('name')}`}
+                  />
+                </NavLink>
+              ) : []}
+              <span className="app-name space-left">Character Astronomy</span>
+              <Breadcrumb className="header-breadcrumbs space-left">
+                {paths.map((text) => (
+                  <BreadcrumbItem key={text}>{text}</BreadcrumbItem>
+                ))}
+              </Breadcrumb>
+            </ContentContainer>
           </Layout.Header>
         )
       }}

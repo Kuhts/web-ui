@@ -1,5 +1,4 @@
 import React from 'react'
-// import { Collection, } from 'immutable'
 import {
   array,
   any,
@@ -20,7 +19,7 @@ export class PathsContainer extends Container {
 // Following the Singleton Service pattern (think Angular Service),
 // we will instantiate the Container from within this module
 export const Paths = new PathsContainer({
-  path: ['one', 'two'],
+  path: ['dashboard'],
 })
 
 // Then we will wrap the provider and subscriber inside of functional
@@ -30,7 +29,7 @@ export const Paths = new PathsContainer({
 // places that we want to Provide/Subscribe to the API Service.
 // We leave the injector flexible, so you can inject a new dependency
 // at any time, eg: snapshot testing
-export const PathsProvider = props => (
+export const PathsProvider = (props) => (
   <Provider inject={props.inject || [Paths]}>{props.children}</Provider>
 )
 PathsProvider.propTypes = {
@@ -40,7 +39,7 @@ PathsProvider.propTypes = {
 
 // We also leave the subscribe "to" flexible, so you can have full
 // control over your subscripton from outside of the module
-export const PathsSubscribe = props => (
+export const PathsSubscribe = (props) => (
   <Subscribe to={props.to || [Paths]}>{props.children}</Subscribe>
 )
 PathsSubscribe.propTypes = {
