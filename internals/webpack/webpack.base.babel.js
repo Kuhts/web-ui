@@ -127,8 +127,8 @@ module.exports = (options) => ({
     new MomentLocalesPlugin({
       localesToKeep: ['es-us', 'en'],
     }),
-    new ManifestPlugin()
-    // new webpack.IgnorePlugin(/^\.\.\/create\/local$/, /moment$/),
+    new ManifestPlugin(),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
   ]),
   externals: {
     react: 'React',
