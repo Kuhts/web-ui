@@ -152,9 +152,8 @@ export class SiderContainer extends Container {
     return group
   }
 
-  render(key, mapper) {
-    const subset = pages[key]
-    return subset.map(mapper)
+  group(key) {
+    return pages[key]
   }
 }
 

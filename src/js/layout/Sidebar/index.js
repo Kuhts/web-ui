@@ -1,21 +1,25 @@
 import React from 'react'
 import {
-  Layout, Content, Footer, Sider, Header,
+  Layout,
+  Content,
+  Footer,
+  Header,
 } from 'js/component'
 import { Helmet, } from 'react-helmet'
 
-export const Sidebar = ({ title, component: Component, ...props }) => (
+export const Sidebar = ({
+  title,
+  component: Component,
+  ...props
+}) => (
   <Layout className="full-height">
     <Helmet>
       <title>{title}</title>
     </Helmet>
-    <Sider />
-    <Layout flexed>
-      <Header />
-      <Content content>
-        <Component {...props} />
-      </Content>
-      <Footer />
-    </Layout>
+    <Header />
+    <Content content>
+      <Component {...props} />
+    </Content>
+    <Footer />
   </Layout>
 )

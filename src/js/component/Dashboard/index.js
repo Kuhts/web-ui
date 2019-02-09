@@ -2,13 +2,9 @@ import React from 'react'
 import styled from 'react-emotion'
 import {
   DocumentsTable,
-  // NewDocument,
-  // Modal,
 } from 'js/component'
 import {
   NavLink,
-  // Switch,
-  // Route,
 } from 'react-router-dom'
 import {
   Icon,
@@ -19,10 +15,6 @@ import {
   array,
   object,
 } from 'prop-types'
-
-// const NewDocumentModal = Modal({
-//   children: NewDocument,
-// })
 
 const StyledDashboard = styled(UnstyledDashboard)``
 
