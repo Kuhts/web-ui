@@ -1,14 +1,10 @@
 import React, {
   Component,
 } from 'react'
-// import {
-//   Map,
-// } from 'immutable'
 import {
   NavLink,
 } from 'react-router-dom'
 import styled from 'react-emotion'
-// import classnames from 'classnames'
 import {
   Table,
   Input,
@@ -28,11 +24,11 @@ import {
 import 'react-resizable/css/styles.css'
 
 const groupKey = [
-  'documentsTable'
+  'documentsFeed'
 ]
 const sizesKey = groupKey.concat(['sizes'])
 
-class UnstyledDocumentsTable extends Component {
+class UnstyledDocumentsFeed extends Component {
   state = {
     dataSource: [],
     loading: false,
@@ -262,14 +258,14 @@ class UnstyledDocumentsTable extends Component {
   }
 }
 
-const DocumentsTable = styled(UnstyledDocumentsTable)`
+const DocumentsFeed = styled(UnstyledDocumentsFeed)`
 .ant-table-body {
   margin: 0 !important;
 }
 `
 
 export {
-  DocumentsTable,
+  DocumentsFeed,
 }
 
 function ResizeableTitle(props) {

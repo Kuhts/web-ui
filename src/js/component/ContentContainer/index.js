@@ -3,7 +3,7 @@ import {
   maxGridWidth,
 } from 'js/styles'
 
-const ContentContainer = styled('DIV')`
+const ContentContainer = styled('div')`
 max-width: ${maxGridWidth}px;
 width: 100%;
 margin: 0 auto;

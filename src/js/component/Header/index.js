@@ -81,10 +81,12 @@ function UnstyledHeader({
         return (
           <Layout.Header className={className}>
             <ContentContainer>
-              <Icon
-                className="trigger"
-                type="bars"
-              />
+              <NavLink to="/app/">
+                <Icon
+                  className="trigger"
+                  type="bars"
+                />
+              </NavLink>
               {user.loggedIn() ? (
                 <NavLink className="profile-link space-left" to="/app/profile/">
                   <img

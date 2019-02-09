@@ -28,6 +28,9 @@ import {
   string,
   array,
 } from 'prop-types'
+import {
+  ContentContainer,
+} from 'js/component'
 const { Footer: FooterLayout, } = Layout
 const year = (new Date()).getYear() + 1900
 UnstyledFooter.propTypes = {
@@ -105,11 +108,13 @@ function UnstyledFooter({
 }) {
   return (
     <FooterLayout className={className}>
-      <NavList />
-      <p>
-        Indefensible&nbsp;&copy;&nbsp;
-        {year}
-      </p>
+      <ContentContainer>
+        <NavList />
+        <p>
+          Indefensible&nbsp;&copy;&nbsp;
+          {year}
+        </p>
+      </ContentContainer>
     </FooterLayout>
   )
 }

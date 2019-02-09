@@ -1,9 +1,6 @@
 import React from 'react'
 import styled from 'react-emotion'
 import {
-  DocumentsTable,
-} from 'js/component'
-import {
   NavLink,
 } from 'react-router-dom'
 import {
@@ -15,6 +12,18 @@ import {
   array,
   object,
 } from 'prop-types'
+import {
+  DocumentsFeed,
+  ContentContainer,
+} from 'js/component'
+
+UnstyledDashboard.propTypes = {
+  className: oneOfType([
+    string,
+    array,
+    object
+  ]),
+}
 
 const StyledDashboard = styled(UnstyledDashboard)``
 
@@ -26,21 +35,14 @@ function UnstyledDashboard({
   className,
 }) {
   return (
-    <div className={className}>
+    <ContentContainer className={className}>
       <h2>
         Posts&nbsp;
         <NavLink to="newdocument">
           <Icon type="plus-square" />
         </NavLink>
       </h2>
-      <DocumentsTable />
-    </div>
+      <DocumentsFeed />
+    </ContentContainer>
   )
-}
-UnstyledDashboard.propTypes = {
-  className: oneOfType([
-    string,
-    array,
-    object
-  ]),
 }
