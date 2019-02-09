@@ -1,5 +1,4 @@
 import React from 'react'
-import moment from 'moment'
 import {
   NavLink,
   withRouter,
@@ -30,7 +29,7 @@ import {
   array,
 } from 'prop-types'
 const { Footer: FooterLayout, } = Layout
-const year = moment().year()
+const year = (new Date()).getYear() + 1900
 UnstyledFooter.propTypes = {
   className: oneOfType([
     string,
