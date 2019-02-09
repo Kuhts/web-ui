@@ -3,5 +3,7 @@ import { Button, } from 'antd'
 export { Home, }
 
 function Home() {
-  return <Button>Home</Button>
+  return (
+    <Button>Home</Button>
+  )
 }
