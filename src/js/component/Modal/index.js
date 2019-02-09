@@ -18,7 +18,7 @@ const StyledModal = styled(UnstyledModal)`
   min-height: 56px;
 }
 `
-const Modal = hocProps => props => <StyledModal {...props} {...hocProps} />
+const Modal = (hocProps) => (props) => <StyledModal {...props} {...hocProps} />
 
 /* const ModalFooterless = (Component) => (props) => (<UnstyledModalFooterless {...props}>
   <Component {...props} />

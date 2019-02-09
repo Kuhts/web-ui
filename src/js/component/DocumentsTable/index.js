@@ -54,14 +54,14 @@ class UnstyledDocumentsTable extends Component {
             ref={(ele) => { this.searchInput = ele }}
             placeholder="Search name"
             value={selectedKeys[0]}
-            onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+            onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
             onPressEnter={this.handleSearch(selectedKeys, confirm)}
           />
           <Button type="primary" onClick={this.handleSearch(selectedKeys, confirm)}>Search</Button>
           <Button onClick={this.handleReset(clearFilters)}>Reset</Button>
         </div>
       ),
-      filterIcon: filtered => <Icon type="smile-o" style={{ color: filtered ? '#108ee9' : '#aaa', }} />,
+      filterIcon: (filtered) => <Icon type="smile-o" style={{ color: filtered ? '#108ee9' : '#aaa', }} />,
       onFilter: (value, record) => record.name.toLowerCase().includes(value.toLowerCase()),
       onFilterDropdownVisibleChange: (visible) => {
         if (visible) {
@@ -132,7 +132,7 @@ class UnstyledDocumentsTable extends Component {
     }))
   }
 
-  handleReset = clearFilters => () => {
+  handleReset = (clearFilters) => () => {
     clearFilters()
     this.setState(() => ({
       searchText: '',
@@ -161,7 +161,7 @@ class UnstyledDocumentsTable extends Component {
     this.setState({
       loading: true,
     })
-    return Documents.access(params).then(data => this.setState(({
+    return Documents.access(params).then((data) => this.setState(({
       pagination,
     }) => ({
       loading: false,
@@ -173,7 +173,7 @@ class UnstyledDocumentsTable extends Component {
     })))
   }
 
-  handleResize = index => (e, {
+  handleResize = (index) => (e, {
     size: {
       width,
     },
@@ -248,7 +248,7 @@ class UnstyledDocumentsTable extends Component {
               size="small"
               className={className}
               columns={columns}
-              rowKey={record => record.id}
+              rowKey={(record) => record.id}
               dataSource={dataSource}
               pagination={pagination}
               loading={loading}

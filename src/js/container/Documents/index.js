@@ -90,7 +90,7 @@ export const Documents = new DocumentsContainer({
 // places that we want to Provide/Subscribe to the API Service.
 // We leave the injector flexible, so you can inject a new dependency
 // at any time, eg: snapshot testing
-export const DocumentsProvider = props => (
+export const DocumentsProvider = (props) => (
   <Provider inject={props.inject || [Documents]}>{props.children}</Provider>
 )
 DocumentsProvider.propTypes = {
@@ -100,7 +100,7 @@ DocumentsProvider.propTypes = {
 
 // We also leave the subscribe "to" flexible, so you can have full
 // control over your subscripton from outside of the module
-export const DocumentsSubscribe = props => (
+export const DocumentsSubscribe = (props) => (
   <Subscribe to={props.to || [Documents]}>{props.children}</Subscribe>
 )
 DocumentsSubscribe.propTypes = {

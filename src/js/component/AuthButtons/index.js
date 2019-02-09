@@ -12,7 +12,7 @@ import {
   object,
 } from 'prop-types'
 
-export const UnstyledAuthButtons = props => (
+export const UnstyledAuthButtons = (props) => (
   <Subscribe to={[User]}>
     {(user) => {
       const { state, } = user

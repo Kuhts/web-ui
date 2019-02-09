@@ -23,13 +23,13 @@ export class ModalContainer extends Container {
     })
   }
 
-  forward = to => this.setState(({
+  forward = (to) => this.setState(({
     directions,
   }) => ({
     redirect: <Redirect to={to || directions.forward} />,
   }))
 
-  back = to => this.setState(({
+  back = (to) => this.setState(({
     directions,
   }) => ({
     redirect: <Redirect to={to || directions.back} />,
@@ -47,7 +47,7 @@ export const Modal = new ModalContainer({})
 // places that we want to Provide/Subscribe to the API Service.
 // We leave the injector flexible, so you can inject a new dependency
 // at any time, eg: snapshot testing
-export const ModalProvider = props => (
+export const ModalProvider = (props) => (
   <Provider {...props} inject={props.inject || [Modal]}>
     {props.children}
   </Provider>
@@ -55,7 +55,7 @@ export const ModalProvider = props => (
 
 // We also leave the subscribe "to" flexible, so you can have full
 // control over your subscripton from outside of the module
-export const ModalSubscribe = props => (
+export const ModalSubscribe = (props) => (
   <Subscribe {...props} to={props.to || [Modal]}>
     {props.children}
   </Subscribe>

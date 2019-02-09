@@ -64,13 +64,13 @@ export class UserContainer extends Container {
 
   redirect() {}
 
-  login = user => this.setState(() => ({
+  login = (user) => this.setState(() => ({
     data: fromJS(user || {}),
     loading: false,
   }))
 
   update(updates) {
-    return user.update(updates).then(updates => this.merge(updates))
+    return user.update(updates).then((updates) => this.merge(updates))
   }
 
   merge(updates) {
@@ -105,14 +105,14 @@ export class UserContainer extends Container {
     return loggingOut
   }
 
-  detachProvider = key => user.detachProvider(key).then(({ data: { path, value, }, }) => {
+  detachProvider = (key) => user.detachProvider(key).then(({ data: { path, value, }, }) => {
     this.set(path, value)
   })
 
   startLogin = (key) => {
     const path = url(`auth/${key}/`)
     const posts = providers
-      .find(provider => provider.get('provider') === key)
+      .find((provider) => provider.get('provider') === key)
       .get('post')
     const starter = posts ? user.auth(key) : this.openPopup(path)
     return starter.then(() => this.check())
@@ -180,7 +180,7 @@ User.check()
 // places that we want to Provide/Subscribe to the API Service.
 // We leave the injector flexible, so you can inject a new dependency
 // at any time, eg: snapshot testing
-export const UserProvider = props => (
+export const UserProvider = (props) => (
   <Provider inject={props.inject || [User]}>{props.children}</Provider>
 )
 UserProvider.propTypes = {
@@ -190,7 +190,7 @@ UserProvider.propTypes = {
 
 // We also leave the subscribe "to" flexible, so you can have full
 // control over your subscripton from outside of the module
-export const UserSubscribe = props => (
+export const UserSubscribe = (props) => (
   <Subscribe to={props.to || [User]}>{props.children}</Subscribe>
 )
 UserSubscribe.propTypes = {
