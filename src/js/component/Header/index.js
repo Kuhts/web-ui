@@ -2,9 +2,12 @@ import React from 'react'
 import {
   NavLink,
 } from 'react-router-dom'
-import { Icon, Layout, Breadcrumb, } from 'antd'
+import { Icon, Layout, } from 'antd'
 import { Subscribe, } from 'unstated'
 import styled from 'react-emotion'
+import {
+  SITE_NAME,
+} from 'config'
 import {
   ContentContainer,
 } from 'js/component'
@@ -17,6 +20,7 @@ import {
   contentPadding,
   headerHeight,
   headerVerticalPadding,
+  colors,
 } from 'js/styles'
 import {
   oneOfType,
@@ -25,9 +29,6 @@ import {
   object,
 } from 'prop-types'
 
-const {
-  Item: BreadcrumbItem,
-} = Breadcrumb
 const profileDimension = headerHeight - headerVerticalPadding - headerVerticalPadding
 
 const StyledHeader = styled(UnstyledHeader)`
@@ -38,19 +39,15 @@ const StyledHeader = styled(UnstyledHeader)`
   font-size: ${contentPadding}px;
   display: flex;
   text-align: center;
+  border-bottom: 1px solid ${colors.grey};
   .profile-image {
     display: inline-block;
     border: 2px solid rgba(0, 0, 0, 0.65);
     box-sizing: border-box;
     border-radius: 50%;
-    margin: ${headerVerticalPadding}px;
-  }
-  .profile-link {
-    display: inline-block;
-    border-radius: 50%;
   }
   .space-left {
-    margin-left: ${contentPadding}px;
+    margin-left: ${contentPadding / 2}px;
   }
   .header-breadcrumbs {
     line-height: ${headerHeight}px;
@@ -58,10 +55,25 @@ const StyledHeader = styled(UnstyledHeader)`
       line-height: ${headerHeight}px;
     }
   }
+  .center-wrapper {
+    width: auto;
+    margin: 0 auto;
+    display: inline-block;
+  }
   .trigger {
     cursor: pointer;
     transition: color 0.3s;
     line-height: 56px;
+  }
+  .button-wrapper {
+    position: relative;
+    display: block;
+    height: ${headerHeight}px;
+    width: ${headerHeight}px;
+    text-align: center;
+  }
+  .float-left {
+    float: left;
   }
 `
 
@@ -81,29 +93,32 @@ function UnstyledHeader({
         return (
           <Layout.Header className={className}>
             <ContentContainer>
-              <NavLink to="/app/">
-                <Icon
-                  className="trigger"
-                  type="bars"
-                />
-              </NavLink>
-              {user.loggedIn() ? (
-                <NavLink className="profile-link space-left" to="/app/profile/">
-                  <img
-                    width={profileDimension}
-                    height={profileDimension}
-                    className="profile-image"
-                    src={data.get('image')}
-                    alt={`User icon of ${data.get('name')}`}
+              <div className="center-wrapper">
+                <NavLink to="/app/" className="button-wrapper float-left">
+                  <Icon
+                    className="trigger"
+                    type="bars"
                   />
                 </NavLink>
-              ) : []}
-              <span className="app-name space-left">Character Astronomy</span>
-              <Breadcrumb className="header-breadcrumbs space-left">
-                {paths.map((text) => (
-                  <BreadcrumbItem key={text}>{text}</BreadcrumbItem>
-                ))}
-              </Breadcrumb>
+                <NavLink to="newdocument" className="button-wrapper float-left">
+                  <Icon type="plus-square" />
+                </NavLink>
+                {user.loggedIn() ? (
+                  <NavLink className="profile-link button-wrapper float-left" to="/app/profile/">
+                    <img
+                      width={profileDimension}
+                      height={profileDimension}
+                      className="profile-image"
+                      src={data.get('image')}
+                      alt={`User icon of ${data.get('name')}`}
+                    />
+                  </NavLink>
+                ) : []}
+                <span
+                  className="app-name space-left float-left">
+                  {SITE_NAME}
+                </span>
+              </div>
             </ContentContainer>
           </Layout.Header>
         )
@@ -111,6 +126,7 @@ function UnstyledHeader({
     </Subscribe>
   )
 }
+
 UnstyledHeader.propTypes = {
   className: oneOfType([
     string,

@@ -1,7 +1,10 @@
 import React from 'react'
 import styled from 'react-emotion'
 import classnames from 'classnames'
-import { contentPadding, extraScrollSpace, } from 'js/styles'
+import {
+  contentPadding,
+  extraScrollSpace,
+} from 'js/styles'
 import {
   oneOfType,
   string,
@@ -29,8 +32,7 @@ UnstyledContent.propTypes = {
   ]),
 }
 const StyledContent = styled(UnstyledContent)`
-  background: #fff;
-  padding: ${contentPadding}px ${contentPadding}px ${extraScrollSpace}px;
+  padding: ${contentPadding / 2}px ${contentPadding / 2}px ${extraScrollSpace}px;
   &.flexed {
     min-height: 100vh;
     display: flex;

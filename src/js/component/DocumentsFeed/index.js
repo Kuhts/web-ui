@@ -1,43 +1,20 @@
 import React, {
   Component,
 } from 'react'
-// import {
-//   NavLink,
-// } from 'react-router-dom'
 import styled from 'react-emotion'
 import {
-  // Table,
-  // Input,
-  // Button,
-  // Icon,
   List,
-  // message,
-  Avatar,
   Spin,
 } from 'antd'
+import {
+  contentPadding,
+} from 'js/styles'
 import classnames from 'classnames'
-// import InfiniteScroll from 'react-infinite-scroller'
 import reqwest from 'reqwest'
-// import {
-//   Documents,
-//   Local,
-// } from 'js/container'
-// import {
-//   Subscribe,
-// } from 'unstated'
-// import {
-//   Resizable,
-// } from 'react-resizable'
-// import 'react-resizable/css/styles.css'
 import WindowScroller from 'react-virtualized/dist/commonjs/WindowScroller'
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer'
 import VList from 'react-virtualized/dist/commonjs/List'
 import InfiniteLoader from 'react-virtualized/dist/commonjs/InfiniteLoader'
-
-// const groupKey = [
-//   'documentsFeed'
-// ]
-// const sizesKey = groupKey.concat(['sizes'])
 
 const fakeDataUrl = 'https://randomuser.me/api/?results=10&inc=name,gender,email,nat&noinfo'
 
@@ -57,7 +34,9 @@ class UnstyledDocumentsFeed extends Component {
     return this.fetchData(({
       results,
     }) => this.setState(() => ({
-      data: list.concat(results),
+      data: list.concat(results.map((obj) => Object.assign(obj, {
+        date: (new Date()).toISOString(),
+      }))),
       loading: false,
     })))
   }
@@ -101,21 +80,20 @@ class UnstyledDocumentsFeed extends Component {
     } = this.state
     const item = data[index]
     const {
-      name,
-      email,
+      date,
+      summary = 'Bacon ipsum dolor amet leberkas tri-tip ham hock tongue, landjaeger pork beef ribs rump ball tip beef. Pig drumstick shankle, porchetta ball tip meatloaf burgdoggen boudin ham hock bacon pork loin.',
+      title = 'title',
     } = item
     const styls = Object.assign({}, style, {
       borderBottom: 0,
-      borderTop: '1px solid rgba(0, 0, 0, 0.15)',
     })
     return (
       <List.Item key={key} style={styls}>
         <List.Item.Meta
-          avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-          title={<a href="https://ant.design">{name.last}</a>}
-          description={email}
+          title={title}
+          description={date}
         />
-        <div className="post-content-container">Bacon ipsum dolor amet leberkas tri-tip ham hock tongue, landjaeger pork beef ribs rump ball tip beef. Pig drumstick shankle, porchetta ball tip meatloaf burgdoggen boudin ham hock bacon pork loin.</div>
+        <div className="post-content-container">{summary}</div>
       </List.Item>
     )
   }
@@ -147,7 +125,7 @@ class UnstyledDocumentsFeed extends Component {
         onScroll={onChildScroll}
         overscanRowCount={2}
         rowCount={data.length}
-        rowHeight={94}
+        rowHeight={65}
         rowRenderer={this.renderItem}
         onRowsRendered={onRowsRendered}
         scrollTop={scrollTop}
@@ -217,8 +195,18 @@ class UnstyledDocumentsFeed extends Component {
 const DocumentsFeed = styled(UnstyledDocumentsFeed)`
 border-radius: 4px;
 overflow: auto;
-padding: 0 24px;
-
+padding: 0;
+.ant-list-item {
+  padding: ${contentPadding / 2}px;
+  display: block;
+}
+.ant-list-item-meta-title {
+  float: left;
+}
+.ant-list-item-meta-description {
+  float: right;
+  margin-left: 5px;
+}
 .demo-loading-container {
   position: absolute;
   bottom: 40px;
@@ -239,34 +227,13 @@ padding: 0 24px;
 .ant-spin-spinning {
   width: 100%;
 }
+.post-content-container {
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+}
 `
 
 export {
   DocumentsFeed,
 }
-
-// function ResizeableTitle(props) {
-//   const {
-//     width,
-//     adjustsWidth,
-//     defaultWidth,
-//     onResize,
-//     onResizeStop,
-//     ...restProps
-//   } = props
-
-//   if (adjustsWidth === false) {
-//     return <th {...restProps} />
-//   }
-
-//   return (
-//     <Resizable
-//       width={width || defaultWidth}
-//       height={0}
-//       onResize={onResize}
-//       onResizeStop={onResizeStop}
-//     >
-//       <th {...restProps} />
-//     </Resizable>
-//   )
-// }
