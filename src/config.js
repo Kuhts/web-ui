@@ -7,7 +7,7 @@ const {
   API_URL: apiURL,
 } = process.env
 const PRODUCTION = NODE_ENV === PROD_KEY
-const API_URL = PRODUCTION ? apiURL : 'https://localhost:8080'
+const API_URL = PRODUCTION ? apiURL : 'https://localhost:8080/'
 
 const PROVIDERS = [
   {
