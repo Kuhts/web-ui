@@ -7,7 +7,7 @@ const {
 } = process.env
 const PRODUCTION = NODE_ENV === PROD_KEY
 const API_URL = PRODUCTION
-  ? 'https://react-auth-twitter.herokuapp.com'
+  ? 'https://kuhts-api.herokuapp.com'
   : 'https://localhost:8080'
 
 const PROVIDERS = [
