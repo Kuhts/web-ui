@@ -2,7 +2,7 @@ import React from 'react'
 import {
   Layout,
   Content,
-  Footer,
+  // Footer,
   Header,
 } from 'js/component'
 import { Helmet, } from 'react-helmet'
@@ -12,7 +12,7 @@ export const Sidebar = ({
   component: Component,
   ...props
 }) => (
-  <Layout className="full-height">
+  <Layout>
     <Helmet>
       <title>{title}</title>
     </Helmet>
@@ -20,6 +20,6 @@ export const Sidebar = ({
     <Content content>
       <Component {...props} />
     </Content>
-    <Footer />
   </Layout>
 )
+// <Footer />

@@ -10,7 +10,6 @@ import { Provider, } from 'unstated'
 import { Router, } from 'react-router-dom'
 import history from 'js/history'
 import 'scss/index.scss'
-// import socket from 'js/socket'
 import * as OfflinePluginRuntime from 'offline-plugin/runtime'
 import {
   translationMessages,

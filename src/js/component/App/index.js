@@ -27,10 +27,7 @@ export const App = () => (
           </Switch>
           <ModalRoutes />
         </Fragment>
-      ) : (
-        loader
-      )
-      }
+      ) : loader}
     </Subscribe>
   </Fragment>
 )

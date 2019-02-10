@@ -25,7 +25,11 @@ UnstyledDashboard.propTypes = {
   ]),
 }
 
-const StyledDashboard = styled(UnstyledDashboard)``
+const StyledDashboard = styled(UnstyledDashboard)`
+.feed-container {
+  position: relative;
+}
+`
 
 export {
   StyledDashboard as Dashboard,
@@ -42,7 +46,9 @@ function UnstyledDashboard({
           <Icon type="plus-square" />
         </NavLink>
       </h2>
-      <DocumentsFeed />
+      <div className="feed-container">
+        <DocumentsFeed />
+      </div>
     </ContentContainer>
   )
 }

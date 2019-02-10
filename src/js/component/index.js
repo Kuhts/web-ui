@@ -17,7 +17,7 @@ export * from 'js/component/Modal'
 
 export * from 'js/component/Content'
 export * from 'js/component/Dashboard'
-export * from 'js/component/Footer'
+// export * from 'js/component/Footer'
 export * from 'js/component/Layout'
 export * from 'js/component/Login'
 export * from 'js/component/Authenticate'
