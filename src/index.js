@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import '@babel/polyfill'
 import {
   App,
-  LanguageProvider,
+  // LanguageProvider,
 } from 'js/component'
 import { Provider, } from 'unstated'
 import { Router, } from 'react-router-dom'
@@ -35,34 +35,34 @@ if (module.hot) {
 }
 
 // Chunked polyfill for browsers without Intl support
-if (!window.Intl) {
-  new Promise((resolve) => {
-    resolve(import('intl'))
-  })
-    .then(() => Promise.all([
-      import('intl/locale-data/jsonp/en.js'),
-      import('intl/locale-data/jsonp/de.js')
-    ])) // eslint-disable-line prettier/prettier
-    .then(() => render(translationMessages))
-    .catch((err) => {
-      throw err
-    })
-} else {
-  render(translationMessages)
-}
+// if (!window.Intl) {
+//   new Promise((resolve) => {
+//     resolve(import('intl'))
+//   })
+//     .then(() => Promise.all([
+//       import('intl/locale-data/jsonp/en.js'),
+//       import('intl/locale-data/jsonp/de.js')
+//     ])) // eslint-disable-line prettier/prettier
+//     .then(() => render(translationMessages))
+//     .catch((err) => {
+//       throw err
+//     })
+// } else {
+render(translationMessages)
+// }
 
 function render(messages) {
   return ReactDOM.render(tree(messages), MOUNT_NODE)
 }
 
+// <LanguageProvider messages={messages}>
+// </LanguageProvider>
 function tree(messages) {
   return (
     <Provider>
-      <LanguageProvider messages={messages}>
-        <Router history={history}>
-          <App />
-        </Router>
-      </LanguageProvider>
+      <Router history={history}>
+        <App />
+      </Router>
     </Provider>
   )
 }
