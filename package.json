@@ -60,7 +60,8 @@
   "pre-commit": {
     "run": [
       "audit",
-      "lint:staged"
+      "lint:staged",
+      "test"
     ]
   },
   "resolutions": {
