@@ -50,11 +50,16 @@ class UnstyledDocumentsFeed extends Component {
   loadedRowsMap = {}
 
   componentDidMount() {
-    this.fetchData((res) => {
-      this.setState(() => ({
-        data: res.results,
-      }))
-    })
+    return this.gatherData()
+  }
+
+  gatherData(list = []) {
+    return this.fetchData(({
+      results,
+    }) => this.setState(() => ({
+      data: list.concat(results),
+      loading: false,
+    })))
   }
 
   fetchData = (success) => {
@@ -79,22 +84,12 @@ class UnstyledDocumentsFeed extends Component {
       // 1 means loading
       this.loadedRowsMap[i] = 1
     }
-    // if (data.length > 2000) {
-    //   message.warning('Virtualized List loaded all')
-    //   return this.setState({
-    //     loading: false,
-    //     finished: true,
-    //   })
-    // }
-    return this.fetchData(({
-      results,
-    }) => this.setState(() => ({
-      data: data.concat(results),
-      loading: false,
-    })))
+    return this.gatherData(data)
   }
 
-  isRowLoaded = ({ index, }) => !!this.loadedRowsMap[index]
+  isRowLoaded = ({
+    index,
+  }) => !!this.loadedRowsMap[index]
 
   renderItem = ({
     index,
