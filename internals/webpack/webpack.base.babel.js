@@ -1,18 +1,19 @@
 /**
  * COMMON WEBPACK CONFIGURATION
  */
-
+const cwd = process.cwd()
 const path = require('path')
 const webpack = require('webpack')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
+const Dotenv = require('dotenv-webpack')
 
 // Remove this line once the following warning goes away (it was meant for webpack loader authors not users):
 // 'DeprecationWarning: loaderUtils.parseQuery() received a non-string value which can be problematic,
 // see https://github.com/webpack/loader-utils/issues/56 parseQuery() will be replaced with getOptions()
 // in the next major version of loader-utils.'
 process.noDeprecation = true
-
+// console.log(`\n\nprocess: ${JSON.stringify(process.env, null, 2)}\n\n`)
 module.exports = (options) => ({
   mode: options.mode,
   entry: options.entry,
@@ -119,10 +120,11 @@ module.exports = (options) => ({
     // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
     // inside your code for any environment checks; Terser will automatically
     // drop any unreachable code.
+    new Dotenv({
+      path: path.join(cwd, '.env'),
+    }),
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-      },
+      'process.env': JSON.stringify(process.env),
     }),
     new MomentLocalesPlugin({
       localesToKeep: ['es-us', 'en'],
