@@ -34,21 +34,17 @@ if (module.hot) {
   })
 }
 
-function render(messages) {
-  return ReactDOM.render(tree(messages), MOUNT_NODE)
-}
+const render = (messages) => ReactDOM.render(tree(messages), MOUNT_NODE)
 
 // <LanguageProvider messages={messages}>
 // </LanguageProvider>
-function tree(messages) {
-  return (
-    <Provider>
-      <Router history={history}>
-        <App />
-      </Router>
-    </Provider>
-  )
-}
+const tree = (messages) => (
+  <Provider>
+    <Router history={history}>
+      <App />
+    </Router>
+  </Provider>
+)
 
 // Chunked polyfill for browsers without Intl support
 if (!window.Intl) {
