@@ -46,7 +46,6 @@ function request(uri, options_ = {}) {
   } = options_
   const _method = method.toUpperCase()
   const isGET = _method === 'GET'
-  console.log(uri)
   const headersExtension = isGET ? {
     ...headers,
   } : {
