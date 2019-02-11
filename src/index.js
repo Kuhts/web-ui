@@ -34,23 +34,6 @@ if (module.hot) {
   })
 }
 
-// Chunked polyfill for browsers without Intl support
-// if (!window.Intl) {
-//   new Promise((resolve) => {
-//     resolve(import('intl'))
-//   })
-//     .then(() => Promise.all([
-//       import('intl/locale-data/jsonp/en.js'),
-//       import('intl/locale-data/jsonp/de.js')
-//     ])) // eslint-disable-line prettier/prettier
-//     .then(() => render(translationMessages))
-//     .catch((err) => {
-//       throw err
-//     })
-// } else {
-render(translationMessages)
-// }
-
 function render(messages) {
   return ReactDOM.render(tree(messages), MOUNT_NODE)
 }
@@ -65,4 +48,21 @@ function tree(messages) {
       </Router>
     </Provider>
   )
+}
+
+// Chunked polyfill for browsers without Intl support
+if (!window.Intl) {
+  new Promise((resolve) => {
+    resolve(import('intl'))
+  })
+    .then(() => Promise.all([
+      import('intl/locale-data/jsonp/en.js'),
+      import('intl/locale-data/jsonp/de.js')
+    ])) // eslint-disable-line prettier/prettier
+    .then(() => render(translationMessages))
+    .catch((err) => {
+      throw err
+    })
+} else {
+  render(translationMessages)
 }
