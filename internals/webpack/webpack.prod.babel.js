@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const WebpackPwaManifest = require('webpack-pwa-manifest')
 const OfflinePlugin = require('offline-plugin')
 const { HashedModuleIdsPlugin, } = require('webpack')
-// const TerserPlugin = require('terser-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 module.exports = require('./webpack.base.babel')({
   mode: 'production',
@@ -22,26 +22,26 @@ module.exports = require('./webpack.base.babel')({
   },
 
   optimization: {
-    // minimize: true,
-    // minimizer: [
-    //   new TerserPlugin({
-    //     terserOptions: {
-    //       warnings: false,
-    //       compress: {
-    //         comparisons: false,
-    //       },
-    //       parse: {},
-    //       mangle: true,
-    //       output: {
-    //         comments: false,
-    //         ascii_only: true,
-    //       },
-    //     },
-    //     parallel: true,
-    //     cache: true,
-    //     sourceMap: true,
-    //   })
-    // ],
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          warnings: false,
+          compress: {
+            comparisons: false,
+          },
+          parse: {},
+          mangle: true,
+          output: {
+            comments: false,
+            ascii_only: true,
+          },
+        },
+        parallel: true,
+        cache: true,
+        sourceMap: true,
+      })
+    ],
     nodeEnv: 'production',
     sideEffects: true,
     concatenateModules: true,
@@ -73,18 +73,18 @@ module.exports = require('./webpack.base.babel')({
     // Minify and optimize the index.html
     new HtmlWebpackPlugin({
       template: 'src/index.html',
-      // minify: {
-      //   removeComments: true,
-      //   collapseWhitespace: true,
-      //   removeRedundantAttributes: true,
-      //   useShortDoctype: true,
-      //   removeEmptyAttributes: true,
-      //   removeStyleLinkTypeAttributes: true,
-      //   keepClosingSlash: true,
-      //   minifyJS: true,
-      //   minifyCSS: true,
-      //   minifyURLs: true,
-      // },
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true,
+      },
       inject: true,
     }),
 
