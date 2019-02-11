@@ -16,6 +16,7 @@ export const UnstyledLayout = ({
 )
 
 export const StyledLayout = styled(UnstyledLayout)`
+  background: none;
   &.flexed {
     display: flex;
     min-height: 100vh;

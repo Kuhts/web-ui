@@ -1,13 +1,10 @@
 language: node_js
 
 node_js:
-  - 'node'
   - 'lts/*'
 
 script:
-  - node ./internals/scripts/generate-templates-for-linting
-  - npm test -- --maxWorkers=4
-  - npm run build
+  - 'npm run travis'
 
 before_install:
   - export CHROME_BIN=chromium-browser

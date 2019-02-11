@@ -46,14 +46,12 @@ function request(uri, options_ = {}) {
   } = options_
   const _method = method.toUpperCase()
   const isGET = _method === 'GET'
-  const headersExtension = isGET
-    ? {
-      ...headers,
-    }
-    : {
-      'Content-Type': 'application/json',
-      ...headers,
-    }
+  const headersExtension = isGET ? {
+    ...headers,
+  } : {
+    'Content-Type': 'application/json',
+    ...headers,
+  }
   const jsonExtension = !isGET && json ? {
     body: JSON.stringify(json),
     headers: headersExtension,

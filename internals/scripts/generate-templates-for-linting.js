@@ -34,7 +34,7 @@ const reportErrorsFor = title => err => {
 
 // Generated tests are designed to fail, which would in turn fail CI builds
 const removeTestsDirFrom = relativePath => () =>
-  rimraf.sync(path.join(__dirname, '/../../app/', relativePath, '/tests'));
+  rimraf.sync(path.join(__dirname, '/../../src/', relativePath, '/tests'));
 
 const plop = nodePlop('./index.js');
 

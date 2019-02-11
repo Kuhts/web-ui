@@ -18,8 +18,8 @@ export class UnstyledUpdateUsername extends Component {
         value={state.value}
         className="space-bottom-2"
         placeholder={User.state.data.get(key)}
-        onChange={e => this.setState({ value: sterilize(e.target.value), })}
-        onPressEnter={e => User.update({
+        onChange={(e) => this.setState({ value: sterilize(e.target.value), })}
+        onPressEnter={(e) => User.update({
           [key]: e.target.value,
         }).then(() => this.setState({ value: '', }))
         }

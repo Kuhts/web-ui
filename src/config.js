@@ -4,11 +4,10 @@ const SITE_NAME = 'Character Astronomy'
 const PROD_KEY = 'production'
 const {
   NODE_ENV = PROD_KEY,
+  API_URL: apiURL,
 } = process.env
 const PRODUCTION = NODE_ENV === PROD_KEY
-const API_URL = PRODUCTION
-  ? 'https://react-auth-twitter.herokuapp.com'
-  : 'https://localhost:8080'
+const API_URL = PRODUCTION ? apiURL : 'https://localhost:8080/'
 
 const PROVIDERS = [
   {

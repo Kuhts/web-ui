@@ -19,7 +19,7 @@ export const App = () => (
   <Fragment>
     {title}
     <Subscribe to={[User]}>
-      {user => !user.state.loading ? (
+      {(user) => !user.state.loading ? (
         <Fragment>
           <Switch>
             <PrivateRoute path="/app/" component={PrivateApp} />
@@ -27,10 +27,7 @@ export const App = () => (
           </Switch>
           <ModalRoutes />
         </Fragment>
-      ) : (
-        loader
-      )
-      }
+      ) : loader}
     </Subscribe>
   </Fragment>
 )

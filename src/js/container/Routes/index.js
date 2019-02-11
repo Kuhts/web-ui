@@ -29,7 +29,7 @@ export const Routes = new RoutesContainer()
 // places that we want to Provide/Subscribe to the API Service.
 // We leave the injector flexible, so you can inject a new dependency
 // at any time, eg: snapshot testing
-export const RoutesProvider = props => (
+export const RoutesProvider = (props) => (
   <Provider inject={props.inject || [Routes]}>{props.children}</Provider>
 )
 RoutesProvider.propTypes = {
@@ -39,7 +39,7 @@ RoutesProvider.propTypes = {
 
 // We also leave the subscribe "to" flexible, so you can have full
 // control over your subscripton from outside of the module
-export const RoutesSubscribe = props => (
+export const RoutesSubscribe = (props) => (
   <Subscribe to={props.to || [Routes]}>{props.children}</Subscribe>
 )
 RoutesSubscribe.propTypes = {

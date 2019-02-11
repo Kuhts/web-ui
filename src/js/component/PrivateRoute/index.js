@@ -35,9 +35,9 @@ function PrivateRoute(props) {
   return (
     <Route
       {...omit(props, omissionProps)}
-      render={props => (
+      render={(props) => (
         <Subscribe to={[User]}>
-          {user => (
+          {(user) => (
             user.loggedIn() ? (
               <Component {...props} />
             ) : (

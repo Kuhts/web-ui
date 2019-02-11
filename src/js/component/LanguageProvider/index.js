@@ -22,7 +22,7 @@ function LanguageProvider({
       key={locale}
       messages={messages[locale]}
     >
-      {React.Children.only(children)}
+      {children}
     </IntlProvider>
   )
 }

@@ -24,6 +24,6 @@ function PublicProfile({
   const pathname = match.params.path
   User.load(pathname)
   return (
-    <Subscribe to={[User]}>{user => <Button>Public Profile</Button>}</Subscribe>
+    <Subscribe to={[User]}>{(user) => <Button>Public Profile</Button>}</Subscribe>
   )
 }

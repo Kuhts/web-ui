@@ -1,22 +1,35 @@
 import React from 'react'
 import styled from 'react-emotion'
 import {
-  DocumentsTable,
-} from 'js/component'
-import {
-  NavLink,
-} from 'react-router-dom'
-import {
-  Icon,
-} from 'antd'
-import {
   oneOfType,
   string,
   array,
   object,
 } from 'prop-types'
+import {
+  contentPadding,
+} from 'js/styles'
+import {
+  DocumentsFeed,
+  ContentContainer,
+} from 'js/component'
 
-const StyledDashboard = styled(UnstyledDashboard)``
+UnstyledDashboard.propTypes = {
+  className: oneOfType([
+    string,
+    array,
+    object
+  ]),
+}
+
+const StyledDashboard = styled(UnstyledDashboard)`
+.headline {
+  padding: 0 ${contentPadding / 2}px;
+}
+.feed-container {
+  position: relative;
+}
+`
 
 export {
   StyledDashboard as Dashboard,
@@ -26,21 +39,10 @@ function UnstyledDashboard({
   className,
 }) {
   return (
-    <div className={className}>
-      <h2>
-        Posts&nbsp;
-        <NavLink to="newdocument">
-          <Icon type="plus-square" />
-        </NavLink>
-      </h2>
-      <DocumentsTable />
-    </div>
+    <ContentContainer className={className}>
+      <div className="feed-container">
+        <DocumentsFeed />
+      </div>
+    </ContentContainer>
   )
-}
-UnstyledDashboard.propTypes = {
-  className: oneOfType([
-    string,
-    array,
-    object
-  ]),
 }

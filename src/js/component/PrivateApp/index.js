@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom'
 import {
   Dashboard,
-  Editor,
+  // Editor,
   Profile,
   PublicProfile,
 } from 'js/component'
@@ -17,13 +17,13 @@ import {
   shape,
 } from 'prop-types'
 
-const DocumentPage = (props) => (
-  <Sidebar
-    title="Post"
-    component={Editor}
-    {...props}
-  />
-)
+// const DocumentPage = (props) => (
+//   <Sidebar
+//     title="Post"
+//     component={Editor}
+//     {...props}
+//   />
+// )
 const PublicProfilePage = (props) => (
   <Sidebar
     title="Public Profile"
@@ -46,11 +46,11 @@ const DashboardPage = (props) => (
   />
 )
 
+// <Route strict path={`${match.path}post/:id`} component={DocumentPage} />
 const PrivateApp = ({
   match,
 }) => (
   <Switch>
-    <Route strict path={`${match.path}post/:id`} component={DocumentPage} />
     <Route strict path={`${match.path}profile/:path`} component={PublicProfilePage} />
     <Route strict path={`${match.path}profile/`} component={ProfilePage} />
     <Route strict path={`${match.path}`} component={DashboardPage} />

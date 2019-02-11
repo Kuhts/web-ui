@@ -26,7 +26,7 @@ function Login(props) {
         ? <Redirect to={pathname} />
         : (
           <AuthButtons
-            onClick={key => () => User.startLogin(key).then(() => {
+            onClick={(key) => () => User.startLogin(key).then(() => {
               Sider.redirect(pathname)
             })}
           />

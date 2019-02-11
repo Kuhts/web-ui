@@ -31,7 +31,7 @@ module.exports = {
   ],
   env: {
     production: {
-      only: ['app'],
+      only: ['src'],
       plugins: [
         'lodash',
         'emotion',
