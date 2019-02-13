@@ -4,10 +4,9 @@ const SITE_NAME = 'Character Astronomy'
 const PROD_KEY = 'production'
 const {
   NODE_ENV = PROD_KEY,
-  API_URL: apiURL,
+  API_URL,
 } = process.env
 const PRODUCTION = NODE_ENV === PROD_KEY
-const API_URL = PRODUCTION ? apiURL : 'https://localhost:8080/'
 
 const PROVIDERS = [
   {

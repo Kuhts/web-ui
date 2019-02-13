@@ -62,7 +62,7 @@ function request(uri, options_ = {}) {
     body,
   } : {}
   const options = {
-    mode: 'cors',
+    // mode: 'cors',
     method: 'POST',
     credentials: 'include',
     headers,
