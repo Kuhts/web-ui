@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom'
 import {
   Dashboard,
-  // Editor,
+  NewWorkout,
   Profile,
   PublicProfile,
 } from 'js/component'
@@ -17,45 +17,37 @@ import {
   shape,
 } from 'prop-types'
 
-// const DocumentPage = (props) => (
-//   <Sidebar
-//     title="Post"
-//     component={Editor}
-//     {...props}
-//   />
-// )
-const PublicProfilePage = (props) => (
+const generate = (title, component) => (props) => (
   <Sidebar
-    title="Public Profile"
-    component={PublicProfile}
-    {...props}
-  />
-)
-const ProfilePage = (props) => (
-  <Sidebar
-    title="Profile"
-    component={Profile}
-    {...props}
-  />
-)
-const DashboardPage = (props) => (
-  <Sidebar
-    title="Dashboard"
-    component={Dashboard}
+    title={title}
+    component={component}
     {...props}
   />
 )
 
-// <Route strict path={`${match.path}post/:id`} component={DocumentPage} />
 const PrivateApp = ({
   match,
 }) => (
   <Switch>
-    <Route strict path={`${match.path}profile/:path`} component={PublicProfilePage} />
-    <Route strict path={`${match.path}profile/`} component={ProfilePage} />
-    <Route strict path={`${match.path}`} component={DashboardPage} />
+    <Route
+      strict
+      path={`${match.path}profile/:path`}
+      component={generate('Public Profile', PublicProfile)} />
+    <Route
+      strict
+      path={`${match.path}profile/`}
+      component={generate('Profile', Profile)} />
+    <Route
+      strict
+      path={`${match.path}workout/create`}
+      component={generate('New Workout', NewWorkout)} />
+    <Route
+      strict
+      path={`${match.path}`}
+      component={generate('Dashboard', Dashboard)} />
   </Switch>
 )
+
 PrivateApp.propTypes = {
   match: shape({
     path: string,

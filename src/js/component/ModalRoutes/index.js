@@ -7,7 +7,6 @@ import {
   Login,
   Modal,
   Logout,
-  NewDocument,
 } from 'js/component'
 
 const LoginModal = Modal({
@@ -18,13 +17,8 @@ const LoginModal = Modal({
   },
 })
 
-const NewDocumentModal = Modal({
-  children: NewDocument,
-})
-
 export const ModalRoutes = () => (
   <Switch>
-    <Route path="*/newdocument" component={NewDocumentModal} />
     <Route path="*/login" component={LoginModal} />
     <Route path="*/logout" component={Logout} />
   </Switch>

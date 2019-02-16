@@ -5,7 +5,12 @@ import {
   // Footer,
   Header,
 } from 'js/component'
-
+import {
+  Row,
+} from 'antd'
+import {
+  headerHeight,
+} from 'js/styles'
 import {
   presetPalettes,
 } from '@ant-design/colors'
@@ -17,16 +22,22 @@ export const Sidebar = ({
   ...props
 }) => (
   <Layout style={{
-    backgroundColor: presetPalettes.volcano[0],
     height: '100%',
   }}>
     <Helmet>
       <title>{title}</title>
     </Helmet>
-    <Header />
-    <Content>
-      <Component {...props} />
-    </Content>
+    <Row style={{
+      minHeight: '100%',
+    }}>
+      <Content style={{
+        paddingTop: headerHeight,
+        backgroundColor: presetPalettes.volcano[0],
+        minHeight: '100%',
+      }}>
+        <Component {...props} />
+      </Content>
+    </Row>
+    <Header {...props} />
   </Layout>
 )
-// <Footer />

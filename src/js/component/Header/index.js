@@ -37,7 +37,10 @@ const StyledHeader = styled(UnstyledHeader)`
   height: ${headerHeight}px;
   line-height: ${headerHeight}px;
   font-size: ${contentPadding}px;
-  display: flex;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
   text-align: center;
   border-bottom: 1px solid ${colors.grey};
   .profile-image {
@@ -83,9 +86,10 @@ export {
   Header,
 }
 
-function UnstyledHeader({
-  className,
-}) {
+function UnstyledHeader(props) {
+  const {
+    className,
+  } = props
   return (
     <Subscribe to={[Sider, Paths, User]}>
       {(sider, paths, user) => {
@@ -100,7 +104,7 @@ function UnstyledHeader({
                     type="bars"
                   />
                 </NavLink>
-                <NavLink to="newdocument" className="button-wrapper float-left">
+                <NavLink to="/app/workout/create" className="button-wrapper float-left">
                   <Icon type="plus-square" />
                 </NavLink>
                 {user.loggedIn() ? (

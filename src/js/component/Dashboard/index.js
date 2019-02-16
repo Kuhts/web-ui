@@ -7,9 +7,6 @@ import {
   object,
 } from 'prop-types'
 import {
-  contentPadding,
-} from 'js/styles'
-import {
   DocumentsFeed,
   ContentContainer,
 } from 'js/component'
@@ -23,12 +20,7 @@ UnstyledDashboard.propTypes = {
 }
 
 const StyledDashboard = styled(UnstyledDashboard)`
-.headline {
-  padding: 0 ${contentPadding / 2}px;
-}
-.feed-container {
-  position: relative;
-}
+position: relative;
 `
 
 export {
@@ -40,9 +32,7 @@ function UnstyledDashboard({
 }) {
   return (
     <ContentContainer className={className}>
-      <div className="feed-container">
-        <DocumentsFeed />
-      </div>
+      <DocumentsFeed />
     </ContentContainer>
   )
 }

@@ -11,7 +11,7 @@ export * from 'js/component/Home'
 
 // export * from 'js/component/Editor'
 export * from 'js/component/DocumentsFeed'
-export * from 'js/component/NewDocument'
+export * from 'js/component/NewWorkout'
 // export * from 'js/component/LanguageProvider'
 export * from 'js/component/Modal'
 
