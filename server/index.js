@@ -4,7 +4,7 @@ const https = require('https')
 const path = require('path')
 const fs = require('fs')
 const express = require('express')
-const proxy = require('express-http-proxy')
+// const proxy = require('express-http-proxy')
 const logger = require('./logger')
 const cwd = process.cwd()
 const argv = require('./argv')
@@ -14,7 +14,7 @@ const {
   NODE_ENV,
   ENABLE_TUNNEL,
   HOST,
-  API_URL,
+  // API_URL,
 } = process.env
 const isDev = NODE_ENV !== 'production'
 const ngrok = (isDev && ENABLE_TUNNEL) || argv.tunnel ? require('ngrok') : false
@@ -23,15 +23,15 @@ const app = express()
 
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
 // app.use('/api', myApi)
-app.use('/v1', proxy(API_URL, {
-  proxyReqPathResolver(req) {
-    return req.originalUrl
-  },
-  proxyReqOptDecorator(proxyReqOpts, originalReq) {
-    proxyReqOpts.rejectUnauthorized = false
-    return proxyReqOpts
-  },
-}))
+// app.use('/v1', proxy(API_URL, {
+//   proxyReqPathResolver(req) {
+//     return req.originalUrl
+//   },
+//   proxyReqOptDecorator(proxyReqOpts, originalReq) {
+//     proxyReqOpts.rejectUnauthorized = false
+//     return proxyReqOpts
+//   },
+// }))
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
   outputPath: resolve(cwd, 'build'),
