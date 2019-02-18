@@ -1,7 +1,10 @@
 import { stringify, } from 'querystring'
-// import { API_URL, } from 'config'
+import { API_URL, } from 'config'
 
 export const UIPath = '/app/'
+
+export const apiurl = (pathname, params) => `${API_URL}v1/${path(pathname, params)}`
+
 export const url = (pathname, params) => `/v1/${path(pathname, params)}`
 
 export const path = (path = '', params = {}) => `${path}${query(params)}`

@@ -1,7 +1,7 @@
 import React from 'react'
 import { fromJS, } from 'immutable'
 import { Container, Subscribe, Provider, } from 'unstated'
-import { url, } from 'js/utils'
+import { apiurl, } from 'js/utils'
 import { PROVIDERS, } from 'config'
 import { isUndefined, assign, } from 'lodash'
 import { user, } from 'js/service'
@@ -110,7 +110,7 @@ export class UserContainer extends Container {
   })
 
   startLogin = (key) => {
-    const path = url(`auth/${key}/`)
+    const path = apiurl(`auth/${key}/`)
     const posts = providers
       .find((provider) => provider.get('provider') === key)
       .get('post')
