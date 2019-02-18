@@ -132,11 +132,11 @@ module.exports = (options) => ({
     new ManifestPlugin(),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
   ]),
-  externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM',
-    immutable: 'Immutable',
-  },
+  // externals: {
+  //   react: 'React',
+  //   'react-dom': 'ReactDOM',
+  //   immutable: 'Immutable',
+  // },
   resolve: {
     modules: ['node_modules', 'src'],
     extensions: ['.js', '.jsx', '.react.js'],
