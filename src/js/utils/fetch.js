@@ -11,7 +11,7 @@ export { request as fetch, }
  *
  * @return {object}          The parsed JSON from the request
  */
-function parseJSON({ method, }) {
+function parseResult({ method, }) {
   return (response) => {
     if (response.status === 204 || response.status === 205) {
       return null
@@ -73,7 +73,7 @@ function request(uri, options_ = {}) {
   const query = isGET ? json : null
   const url = fullUrl(uri, query)
   return fetch(url, options)
-    .then(parseJSON(options))
+    .then(parseResult(options))
     .then(checkErrorCodes(uri))
 }
 

@@ -8,6 +8,7 @@ import {
   NewWorkout,
   Profile,
   PublicProfile,
+  CreateWorkout,
 } from 'js/component'
 import {
   Sidebar,
@@ -16,6 +17,10 @@ import {
   string,
   shape,
 } from 'prop-types'
+import {
+  user,
+  documents,
+} from 'js/service'
 
 const generate = (title, component) => (props) => (
   <Sidebar
@@ -26,24 +31,30 @@ const generate = (title, component) => (props) => (
 )
 
 const PrivateApp = ({
-  match,
+  match: {
+    path,
+  },
 }) => (
   <Switch>
     <Route
       strict
-      path={`${match.path}profile/:path`}
+      path={user.urls.publicProfile(':path')}
       component={generate('Public Profile', PublicProfile)} />
     <Route
       strict
-      path={`${match.path}profile/`}
+      path={user.urls.profile()}
       component={generate('Profile', Profile)} />
     <Route
       strict
-      path={`${match.path}workout/create`}
-      component={generate('New Workout', NewWorkout)} />
+      path={documents.urls.edit(':id')}
+      component={generate('Edit Workout', NewWorkout)} />
     <Route
       strict
-      path={`${match.path}`}
+      path={documents.urls.create()}
+      component={generate('New Workout', CreateWorkout)} />
+    <Route
+      strict
+      path={`${path}`}
       component={generate('Dashboard', Dashboard)} />
   </Switch>
 )

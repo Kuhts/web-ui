@@ -9,9 +9,10 @@ export * from 'js/component/Tech'
 export * from 'js/component/About'
 export * from 'js/component/Home'
 
-// export * from 'js/component/Editor'
+export * from 'js/component/Loader'
 export * from 'js/component/DocumentsFeed'
 export * from 'js/component/NewWorkout'
+export * from 'js/component/CreateWorkout'
 // export * from 'js/component/LanguageProvider'
 export * from 'js/component/Modal'
 

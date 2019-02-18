@@ -14,7 +14,7 @@ import {
   Provider,
 } from 'unstated'
 
-export class DocumentsContainer extends ImmutableContainer {
+export class SingleDocumentContainer extends ImmutableContainer {
   constructor(props) {
     super(props)
     this.state = props
@@ -30,35 +30,30 @@ export class DocumentsContainer extends ImmutableContainer {
   }
 
   get(id) {
-    return documents.get(id)
+    this.setState({ data: null, })
+    return this.load(id).then(() => this)
   }
 
-  access({
-    results = 10,
-    page,
-    sortField,
-    sortOrder,
-  }) {
-    return documents.getMany({
-      results,
-      page,
-      sortField,
-      sortOrder,
-    }).then(({
-      data = [],
-      total,
-    }) => this.setState({
-      records: data,
-      total,
-    }))
+  load(id) {
+    this.setState({
+      id,
+      loading: true,
+    })
+    const { id: identifier, } = this.state
+    return documents.get(identifier).then((data) => {
+      const { loading, id, } = this.state
+      if (id !== identifier || !loading) {
+        return
+      }
+      this.setState({
+        data,
+        loading: false,
+      })
+    })
   }
 
-  records() {
-    return this.state.records
-  }
-
-  record(identifier) {
-    return this.state.recordById[identifier]
+  append(id) {
+    // console.log('appending', id)
   }
 
   create(data) {
@@ -68,21 +63,22 @@ export class DocumentsContainer extends ImmutableContainer {
   update(id, data) {
     return documents.update(id, data)
   }
+
+  reset() {
+    return this.setState({
+      data: null,
+      saved: false,
+    })
+  }
 }
 
 // Following the Singleton Service pattern (think Angular Service),
 // we will instantiate the Container from within this module
-export const Documents = new DocumentsContainer({
-  // path: ['one', 'two'],
-  current: {
-    contents: [],
-    id: '',
-    description: '',
-    name: '',
-  },
-  recordById: {},
-  possible: [],
-  records: [],
+export const SingleDocument = new SingleDocumentContainer({
+  contents: [],
+  id: '',
+  description: '',
+  name: '',
 })
 
 // Then we will wrap the provider and subscriber inside of functional
@@ -92,20 +88,20 @@ export const Documents = new DocumentsContainer({
 // places that we want to Provide/Subscribe to the API Service.
 // We leave the injector flexible, so you can inject a new dependency
 // at any time, eg: snapshot testing
-export const DocumentsProvider = (props) => (
-  <Provider inject={props.inject || [Documents]}>{props.children}</Provider>
+export const SingleDocumentProvider = (props) => (
+  <Provider inject={props.inject || [SingleDocument]}>{props.children}</Provider>
 )
-DocumentsProvider.propTypes = {
+SingleDocumentProvider.propTypes = {
   inject: array,
   children: any,
 }
 
 // We also leave the subscribe "to" flexible, so you can have full
 // control over your subscripton from outside of the module
-export const DocumentsSubscribe = (props) => (
-  <Subscribe to={props.to || [Documents]}>{props.children}</Subscribe>
+export const SingleDocumentSubscribe = (props) => (
+  <Subscribe to={props.to || [SingleDocument]}>{props.children}</Subscribe>
 )
-DocumentsSubscribe.propTypes = {
+SingleDocumentSubscribe.propTypes = {
   to: array,
   children: any,
 }

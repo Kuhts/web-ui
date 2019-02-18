@@ -1,4 +1,6 @@
-import React from 'react'
+import React, {
+  Fragment,
+} from 'react'
 import classnames from 'classnames'
 import styled from 'react-emotion'
 import {
@@ -18,13 +20,16 @@ import {
   ContentContainer,
 } from 'js/component'
 import {
-  DocumentsContainer,
+  SingleDocument,
   Local,
   Routes,
 } from 'js/container'
 import {
   contentPadding,
 } from 'js/styles'
+import {
+  documents,
+} from 'js/service'
 import {
   View as Arrange,
 } from './arrange'
@@ -33,9 +38,6 @@ import {
 } from './list'
 const { Item: FormItem, } = Form
 
-const Document = new DocumentsContainer({
-  data: fromJS({}),
-})
 const formItemLayout = {
   labelCol: {
     className: 'column',
@@ -76,28 +78,30 @@ const StyledNewWorkout = styled(UnstyledNewWorkout)`
 }
 `
 const NewWorkout = Form.create()(StyledNewWorkout)
-
 export {
   NewWorkout,
 }
 
 function UnstyledNewWorkout({
+  match,
   form,
   className,
   onCancel,
 }) {
-  const basePath = ['newworkout']
   return (
     <ContentContainer>
-      <Subscribe to={[Local, Document]}>
+      <Subscribe to={[Local, SingleDocument]}>
         {(local, doc) => {
+          const basePath = ['newworkout']
+          const { id, } = match.params
           const {
             state,
           } = doc
           const {
             saved,
           } = state
-          const url = `/app/document/${doc.getIn('id')}`
+          // const id = doc.getIn('id')
+          const url = documents.urls.view(id)
           return (
             <Form
               className={classnames('create-new-documents', className)}
@@ -107,17 +111,16 @@ function UnstyledNewWorkout({
                   if (err) {
                     return
                   }
-                  doc.setState(() => ({
+                  doc.setState({
                     loading: true,
-                  }))
-                  doc.create(values).then((data) => doc.setState(() => ({
+                  })
+                  doc.update(values).then((data) => doc.setState(() => ({
                     loading: false,
                     saved: true,
                     data: fromJS(data),
                   })))
                 })
-              }}
-            >
+              }}>
               <InputIterator
                 form={form}
                 local={local}
@@ -139,20 +142,14 @@ function UnstyledNewWorkout({
                 localKey="description"
                 basePath={basePath}
                 Input={Input.TextArea}
+                inputProps={{ autosize: { minRows: 4, }, }}
                 rules={[{
                   required: true,
                   message: 'Please input description for your new workout.',
                 }]}
               />
               <Row className="arrangement-section">
-                <Col {...formItemLayout.labelCol}>
-                  <h2>Movements</h2>
-                  <List />
-                </Col>
-                <Col {...formItemLayout.wrapperCol}>
-                  <h2>Arrangement</h2>
-                  <Arrange />
-                </Col>
+                <ArrangementSection />
               </Row>
               <FormItem {...tailFormItemLayout}>
                 <Button
@@ -183,14 +180,27 @@ function UnstyledNewWorkout({
           )
 
           function reset() {
-            Document.setState({
-              data: fromJS({}),
-              saved: false,
-            })
+            SingleDocument.reset()
           }
         }}
       </Subscribe>
     </ContentContainer>
+  )
+}
+
+function ArrangementSection() {
+  const { labelCol, wrapperCol, } = formItemLayout
+  return (
+    <Fragment>
+      <Col {...labelCol}>
+        <h2>Movements</h2>
+        <List />
+      </Col>
+      <Col {...wrapperCol}>
+        <h2>Arrangement</h2>
+        <Arrange />
+      </Col>
+    </Fragment>
   )
 }
 
@@ -203,6 +213,7 @@ function InputIterator({
   localKey,
   Input,
   label,
+  inputProps,
 }) {
   const {
     getFieldDecorator,
@@ -222,6 +233,7 @@ function InputIterator({
         <Input
           size="large"
           onChange={onChange}
+          {...inputProps}
         />
       )}
     </FormItem>

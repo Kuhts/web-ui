@@ -1,14 +1,26 @@
-import React from 'react'
+import React, {
+  Fragment,
+} from 'react'
 import {
   List,
   Avatar,
 } from 'antd'
+import {
+  Subscribe,
+} from 'unstated'
 import {
   oneOfType,
   array,
   string,
   object,
 } from 'prop-types'
+import {
+  Loader,
+} from 'js/component'
+import {
+  Movements,
+  SingleDocument,
+} from 'js/container'
 import styled from 'react-emotion'
 const ListItem = styled(Item)`
 .ant-list-item-meta {
@@ -31,58 +43,61 @@ const ListItem = styled(Item)`
 }
 `
 Item.propTypes = {
-  className: oneOfType([
-    array,
-    string,
-    object
-  ]),
   category: string,
   url: string,
   title: string,
   description: string,
   image: string,
+  id: string,
+  className: oneOfType([
+    array,
+    string,
+    object
+  ]),
 }
 
 export {
   View,
 }
 
-const patterns = [{
-  title: 'Push Ups',
-  description: 'on your toes. no knees. no spreadsheets',
-}]
-
-function View({
-  items = patterns,
-}) {
+function View() {
   return (
-    <List
-      bordered
-      size="small"
-      dataSource={items}
-      renderItem={(props) => <ListItem {...props} />} />
+    <Subscribe to={[Movements]}>
+      {(movements) => (
+        <Loader promise={movements.load()}>
+          <List
+            bordered
+            size="small"
+            dataSource={movements.state.items}
+            renderItem={(props) => (<ListItem {...props} />)} />
+        </Loader>
+      )}
+    </Subscribe>
   )
 }
 
 function Item({
+  description,
   className,
   category,
-  url,
   title,
-  description,
   image,
+  url,
+  id,
 }) {
+  const titleComponent = (
+    <Fragment>
+      <Avatar src={category} />
+      {title}
+    </Fragment>
+  )
   return (
-    <List.Item className={className}>
+    <List.Item
+      className={className}
+      onClick={() => SingleDocument.append(id)}>
       <List.Item.Meta
-        title={(
-          <a href="https://ant.design">
-            <Avatar src={category} />
-            {title}
-          </a>
-        )}
         description={description}
-      />
+        title={titleComponent} />
     </List.Item>
   )
 }

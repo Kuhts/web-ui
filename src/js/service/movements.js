@@ -1,46 +1,46 @@
 import { fetch, } from 'js/utils'
 import { UIPath, } from 'js/utils/url'
 
-const base = `${UIPath}workout`
+const base = `${UIPath}movement`
 const urls = {
   create: () => `${base}/create`,
   edit: (id) => `${base}/${id}/edit`,
   view: (id) => `${base}/${id}/`,
 }
-const documents = {
-  getMany,
+const movements = {
+  getAll,
   create,
-  get,
   write,
   urls,
+  get,
 }
 
 export {
-  documents,
+  movements,
 }
 
 function write(id, json) {
-  return fetch(`api/documents/${id}`, {
+  return fetch(`api/movement/${id}`, {
     method: 'put',
     json,
   })
 }
 
 function get(id) {
-  return fetch(`api/documents/${id}`, {
+  return fetch(`api/movement/${id}`, {
     method: 'get',
   })
 }
 
-function getMany(json) {
-  return fetch('api/documents', {
+function getAll(json) {
+  return fetch('api/movement', {
     method: 'get',
     json,
   })
 }
 
 function create(json) {
-  return fetch('api/documents', {
+  return fetch('api/movement', {
     json,
   })
 }

@@ -1,8 +1,13 @@
-import {
-  fetch,
-} from 'js/utils'
+import { fetch, } from 'js/utils'
+import { UIPath, } from 'js/utils/url'
 
+const base = `${UIPath}profile/`
+const urls = {
+  profile: () => base,
+  publicProfile: (id) => [base, id].join('/'),
+}
 const user = {
+  urls,
   check,
   logout,
   detachProvider,
