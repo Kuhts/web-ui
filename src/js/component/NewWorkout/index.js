@@ -1,6 +1,4 @@
-import React, {
-  Fragment,
-} from 'react'
+import React from 'react'
 import classnames from 'classnames'
 import styled from 'react-emotion'
 import {
@@ -148,9 +146,7 @@ function UnstyledNewWorkout({
                   message: 'Please input description for your new workout.',
                 }]}
               />
-              <Row className="arrangement-section">
-                <ArrangementSection />
-              </Row>
+              <ArrangementSection />
               <FormItem {...tailFormItemLayout}>
                 <Button
                   size="large"
@@ -191,7 +187,7 @@ function UnstyledNewWorkout({
 function ArrangementSection() {
   const { labelCol, wrapperCol, } = formItemLayout
   return (
-    <Fragment>
+    <Row className="arrangement-section">
       <Col {...labelCol}>
         <h2>Movements</h2>
         <List />
@@ -200,7 +196,7 @@ function ArrangementSection() {
         <h2>Arrangement</h2>
         <Arrange />
       </Col>
-    </Fragment>
+    </Row>
   )
 }
 
