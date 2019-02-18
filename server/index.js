@@ -4,19 +4,34 @@ const https = require('https')
 const path = require('path')
 const fs = require('fs')
 const express = require('express')
+const proxy = require('express-http-proxy')
 const logger = require('./logger')
 const cwd = process.cwd()
 const argv = require('./argv')
 const port = require('./port')
 const setup = require('./middlewares/frontendMiddleware')
-const isDev = process.env.NODE_ENV !== 'production'
-const ngrok = (isDev && process.env.ENABLE_TUNNEL) || argv.tunnel ? require('ngrok') : false
+const {
+  NODE_ENV,
+  ENABLE_TUNNEL,
+  HOST,
+  API_URL,
+} = process.env
+const isDev = NODE_ENV !== 'production'
+const ngrok = (isDev && ENABLE_TUNNEL) || argv.tunnel ? require('ngrok') : false
 const { resolve, } = path
 const app = express()
 
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
-// app.use('/api', myApi);
-
+// app.use('/api', myApi)
+app.use('/v1', proxy(API_URL, {
+  proxyReqPathResolver(req) {
+    return req.originalUrl
+  },
+  proxyReqOptDecorator(proxyReqOpts, originalReq) {
+    proxyReqOpts.rejectUnauthorized = false
+    return proxyReqOpts
+  },
+}))
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
   outputPath: resolve(cwd, 'build'),
@@ -24,7 +39,7 @@ setup(app, {
 })
 
 // get the intended host and port number, use localhost and port 3000 if not provided
-const customHost = argv.host || process.env.HOST
+const customHost = argv.host || HOST
 const host = customHost || null // Let http.Server use its default IPv6/4 host
 const prettyHost = customHost || 'localhost'
 

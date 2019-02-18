@@ -1,7 +1,4 @@
 import {
-  API_URL,
-} from 'config'
-import {
   stringify,
 } from 'querystring'
 import {
@@ -17,11 +14,11 @@ const params = {
 
 const sub = 'profile/edit/password'
 test('generate url from a string', () => {
-  expect(url(sub)).toEqual(`${API_URL}v1/${sub}`)
+  expect(url(sub)).toEqual(`/v1/${sub}`)
 })
 
 test('generate url from a string with query params', () => {
-  expect(url(sub, params)).toEqual(`${API_URL}v1/${sub}?${stringify(params)}`)
+  expect(url(sub, params)).toEqual(`/v1/${sub}?${stringify(params)}`)
 })
 
 test('a path can be created manually', () => {
