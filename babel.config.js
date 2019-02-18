@@ -11,6 +11,7 @@ module.exports = {
   plugins: [
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-syntax-dynamic-import',
+    'lodash',
     'emotion',
     [
       'import',
@@ -27,17 +28,16 @@ module.exports = {
         libraryDirectory: 'lib',
       },
       'ant-mobile'
-    ]
+    ],
+    'transform-react-remove-prop-types',
+    // '@babel/plugin-transform-runtime',
+    // '@babel/plugin-transform-react-inline-elements',
+    '@babel/plugin-transform-react-constant-elements'
   ],
   env: {
     production: {
       only: ['src'],
       plugins: [
-        'lodash',
-        'emotion',
-        'transform-react-remove-prop-types',
-        '@babel/plugin-transform-react-inline-elements',
-        '@babel/plugin-transform-react-constant-elements'
       ],
     },
     test: {

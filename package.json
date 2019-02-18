@@ -66,6 +66,8 @@
   },
   "dependencies": {
     "@ant-design/colors": "^2.0.4",
+    "@babel/plugin-transform-react-inline-elements": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/polyfill": "7.0.0",
     "antd": "^3.13.3",
     "chalk": "2.4.1",
@@ -117,7 +119,6 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-syntax-import-meta": "^7.2.0",
     "@babel/plugin-transform-react-constant-elements": "^7.2.0",
-    "@babel/plugin-transform-react-inline-elements": "^7.2.0",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",

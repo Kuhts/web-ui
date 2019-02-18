@@ -11,12 +11,13 @@ import { Router, } from 'react-router-dom'
 import history from 'js/history'
 import 'scss/index.scss'
 import * as OfflinePluginRuntime from 'offline-plugin/runtime'
-import {
-  translationMessages,
-} from './i18n'
+// import {
+//   translationMessages,
+// } from './i18n'
 // Load the favicon and the .htaccess file
 import '!file-loader?name=[name].[ext]!./images/favicon.ico'
 import 'file-loader?name=.htaccess!./.htaccess' // eslint-disable-line import/extensions
+const translationMessages = {}
 OfflinePluginRuntime.install()
 
 const MOUNT_NODE = document.getElementById('app')
