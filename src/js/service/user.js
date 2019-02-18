@@ -41,6 +41,9 @@ function update(json) {
 function check() {
   return fetch('auth/check', {
     method: 'get',
+    headers: {
+      'X-Trigger': 'CORS',
+    },
   })
 }
 
