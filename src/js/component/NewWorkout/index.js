@@ -18,16 +18,16 @@ import {
   ContentContainer,
 } from 'js/component'
 import {
-  SingleDocument,
+  SingleWorkout,
   Local,
-  Routes,
+  // Routes,
 } from 'js/container'
 import {
   contentPadding,
 } from 'js/styles'
-import {
-  documents,
-} from 'js/service'
+// import {
+//   workouts,
+// } from 'js/service'
 import {
   View as Arrange,
 } from './arrange'
@@ -88,37 +88,41 @@ function UnstyledNewWorkout({
 }) {
   return (
     <ContentContainer>
-      <Subscribe to={[Local, SingleDocument]}>
+      <Subscribe to={[Local, SingleWorkout]}>
         {(local, doc) => {
           const basePath = ['newworkout']
-          const { id, } = match.params
-          const {
-            state,
-          } = doc
-          const {
-            saved,
-          } = state
+          // const { id, } = match.params
+          // const {
+          //   state,
+          // } = doc
+          // const {
+          //   saved,
+          // } = state
           // const id = doc.getIn('id')
-          const url = documents.urls.view(id)
+          // const url = workouts.urls.view(id)
+          // console.log('rerendering form')
+          const onSubmit = (e) => {
+            // console.log(e)
+            e.preventDefault()
+            return form.validateFieldsAndScroll((err, values) => {
+              // console.log(err, values)
+              if (err) {
+                return
+              }
+              doc.setState({
+                loading: true,
+              })
+              doc.update(values).then((data) => doc.setState(() => ({
+                loading: false,
+                saved: true,
+                data: fromJS(data),
+              })))
+            })
+          }
           return (
             <Form
-              className={classnames('create-new-documents', className)}
-              onSubmit={(e) => {
-                e.preventDefault()
-                return form.validateFieldsAndScroll((err, values) => {
-                  if (err) {
-                    return
-                  }
-                  doc.setState({
-                    loading: true,
-                  })
-                  doc.update(values).then((data) => doc.setState(() => ({
-                    loading: false,
-                    saved: true,
-                    data: fromJS(data),
-                  })))
-                })
-              }}>
+              className={classnames('create-new-workouts', className)}
+              onSubmit={onSubmit}>
               <InputIterator
                 form={form}
                 local={local}
@@ -127,6 +131,7 @@ function UnstyledNewWorkout({
                 localKey="name"
                 basePath={basePath}
                 Input={Input}
+                onBlur={onSubmit}
                 rules={[{
                   required: true,
                   message: 'Please input a name for your new workout.',
@@ -140,6 +145,7 @@ function UnstyledNewWorkout({
                 localKey="description"
                 basePath={basePath}
                 Input={Input.TextArea}
+                onBlur={onSubmit}
                 inputProps={{ autosize: { minRows: 4, }, }}
                 rules={[{
                   required: true,
@@ -148,6 +154,28 @@ function UnstyledNewWorkout({
               />
               <ArrangementSection />
               <FormItem {...tailFormItemLayout}>
+
+                <Button
+                  size="large"
+                  type="primary"
+                  htmlType="submit"
+                >
+                Done
+                </Button>
+              </FormItem>
+            </Form>
+          )
+
+          // function reset() {
+          //   SingleWorkout.reset()
+          // }
+        }}
+      </Subscribe>
+    </ContentContainer>
+  )
+}
+/*
+
                 <Button
                   size="large"
                   type="secondary"
@@ -171,19 +199,7 @@ function UnstyledNewWorkout({
                 >
                 Open
                 </Button>
-              </FormItem>
-            </Form>
-          )
-
-          function reset() {
-            SingleDocument.reset()
-          }
-        }}
-      </Subscribe>
-    </ContentContainer>
-  )
-}
-
+*/
 function ArrangementSection() {
   const { labelCol, wrapperCol, } = formItemLayout
   return (
@@ -210,6 +226,7 @@ function InputIterator({
   Input,
   label,
   inputProps,
+  onBlur,
 }) {
   const {
     getFieldDecorator,
@@ -217,6 +234,7 @@ function InputIterator({
   const path = basePath.concat(localKey)
   const initialValue = local.getIn(path)
   const onChange = ({ target, }) => local.save(path, target.value)
+  // const onBlur = () => {}
   return (
     <FormItem
       {...formItemLayout}
@@ -229,6 +247,7 @@ function InputIterator({
         <Input
           size="large"
           onChange={onChange}
+          onBlur={onBlur}
           {...inputProps}
         />
       )}

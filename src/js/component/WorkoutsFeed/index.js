@@ -18,7 +18,7 @@ import InfiniteLoader from 'react-virtualized/dist/commonjs/InfiniteLoader'
 
 const fakeDataUrl = 'https://randomuser.me/api/?results=10&inc=name,gender,email,nat&noinfo'
 
-class UnstyledDocumentsFeed extends Component {
+class UnstyledWorkoutsFeed extends Component {
   state = {
     data: [],
     loading: false,
@@ -192,7 +192,7 @@ class UnstyledDocumentsFeed extends Component {
   }
 }
 
-const DocumentsFeed = styled(UnstyledDocumentsFeed)`
+const WorkoutsFeed = styled(UnstyledWorkoutsFeed)`
 border-radius: 4px;
 overflow: auto;
 padding: 0;
@@ -235,5 +235,5 @@ padding: 0;
 `
 
 export {
-  DocumentsFeed,
+  WorkoutsFeed,
 }

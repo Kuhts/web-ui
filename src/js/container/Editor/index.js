@@ -5,7 +5,7 @@
 //   any,
 // } from 'prop-types'
 // import {
-//   documents,
+//   workouts,
 // } from 'js/service'
 // import {
 //   ImmutableContainer,
@@ -69,7 +69,7 @@
 //     const { contents, } = this.state
 //     const content = slateHTML.serialize(contents)
 //     await Local.save(editorContentsKeys, content)
-//     await documents.write(this.getIn('id'), [content])
+//     await workouts.write(this.getIn('id'), [content])
 //   }
 
 //   setContents(contents) {
@@ -78,7 +78,7 @@
 //   }
 
 //   load(id) {
-//     return documents.get({
+//     return workouts.get({
 //       id,
 //     })
 //   }

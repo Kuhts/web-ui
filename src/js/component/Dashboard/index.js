@@ -7,7 +7,7 @@ import {
   object,
 } from 'prop-types'
 import {
-  DocumentsFeed,
+  WorkoutsFeed,
   ContentContainer,
 } from 'js/component'
 
@@ -32,7 +32,7 @@ function UnstyledDashboard({
 }) {
   return (
     <ContentContainer className={className}>
-      <DocumentsFeed />
+      <WorkoutsFeed />
     </ContentContainer>
   )
 }

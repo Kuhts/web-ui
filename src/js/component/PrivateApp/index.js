@@ -19,7 +19,7 @@ import {
 } from 'prop-types'
 import {
   user,
-  documents,
+  workouts,
 } from 'js/service'
 
 const generate = (title, component) => (props) => (
@@ -46,11 +46,11 @@ const PrivateApp = ({
       component={generate('Profile', Profile)} />
     <Route
       strict
-      path={documents.urls.edit(':id')}
+      path={workouts.urls.edit(':id')}
       component={generate('Edit Workout', NewWorkout)} />
     <Route
       strict
-      path={documents.urls.create()}
+      path={workouts.urls.create()}
       component={generate('New Workout', CreateWorkout)} />
     <Route
       strict

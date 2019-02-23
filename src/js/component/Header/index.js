@@ -29,7 +29,7 @@ import {
   object,
 } from 'prop-types'
 import {
-  documents,
+  workouts,
 } from 'js/service'
 
 const profileDimension = headerHeight - headerVerticalPadding - headerVerticalPadding
@@ -107,7 +107,7 @@ function UnstyledHeader(props) {
                     type="bars"
                   />
                 </NavLink>
-                <NavLink to={documents.urls.create()} className="button-wrapper float-left">
+                <NavLink to={workouts.urls.create()} className="button-wrapper float-left">
                   <Icon type="plus-square" />
                 </NavLink>
                 {user.loggedIn() ? (

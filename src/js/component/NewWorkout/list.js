@@ -19,7 +19,7 @@ import {
 } from 'js/component'
 import {
   Movements,
-  SingleDocument,
+  SingleWorkout,
 } from 'js/container'
 import styled from 'react-emotion'
 const ListItem = styled(Item)`
@@ -94,7 +94,7 @@ function Item({
   return (
     <List.Item
       className={className}
-      onClick={() => SingleDocument.append(id)}>
+      onClick={() => SingleWorkout.append(id)}>
       <List.Item.Meta
         description={description}
         title={titleComponent} />

@@ -6,11 +6,11 @@ import {
   string,
 } from 'prop-types'
 import {
-  SingleDocument,
+  SingleWorkout,
   Movements,
 } from 'js/container'
 import {
-  documents,
+  workouts,
 } from 'js/service'
 
 const { TreeNode, } = Tree
@@ -80,7 +80,7 @@ class Arrange extends React.Component {
       }
     }
 
-    return documents.update(this.props.id, {
+    return workouts.update(this.props.id, {
       contents: data,
     })
 
@@ -97,7 +97,7 @@ class Arrange extends React.Component {
 
   render() {
     return (
-      <Subscribe to={[SingleDocument, Movements]}>
+      <Subscribe to={[SingleWorkout, Movements]}>
         {(doc) => (
           <Tree
             className="draggable-tree"

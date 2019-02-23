@@ -10,6 +10,7 @@ import {
 } from 'antd'
 import {
   headerHeight,
+  contentPadding,
 } from 'js/styles'
 import {
   presetPalettes,
@@ -35,6 +36,7 @@ export const Sidebar = ({
         backgroundColor: presetPalettes.volcano[0],
         minHeight: '100%',
       }}>
+        <div style={{ marginTop: contentPadding / 2, }}></div>
         <Component {...props} />
       </Content>
     </Row>

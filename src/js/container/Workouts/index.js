@@ -3,7 +3,7 @@ import {
   ImmutableContainer,
 } from 'js/utils'
 import {
-  documents,
+  workouts,
 } from 'js/service'
 import {
   array,
@@ -14,7 +14,7 @@ import {
   Provider,
 } from 'unstated'
 
-export class DocumentsContainer extends ImmutableContainer {
+export class WorkoutsContainer extends ImmutableContainer {
   constructor(props) {
     super(props)
     this.state = props
@@ -30,7 +30,7 @@ export class DocumentsContainer extends ImmutableContainer {
   }
 
   get(id) {
-    return documents.get(id)
+    return workouts.get(id)
   }
 
   access({
@@ -39,7 +39,7 @@ export class DocumentsContainer extends ImmutableContainer {
     sortField,
     sortOrder,
   }) {
-    return documents.getMany({
+    return workouts.getMany({
       results,
       page,
       sortField,
@@ -62,17 +62,17 @@ export class DocumentsContainer extends ImmutableContainer {
   }
 
   create(data) {
-    return documents.create(data)
+    return workouts.create(data)
   }
 
   update(id, data) {
-    return documents.update(id, data)
+    return workouts.update(id, data)
   }
 }
 
 // Following the Singleton Service pattern (think Angular Service),
 // we will instantiate the Container from within this module
-export const Documents = new DocumentsContainer({
+export const Workouts = new WorkoutsContainer({
   // path: ['one', 'two'],
   current: {
     contents: [],
@@ -92,20 +92,20 @@ export const Documents = new DocumentsContainer({
 // places that we want to Provide/Subscribe to the API Service.
 // We leave the injector flexible, so you can inject a new dependency
 // at any time, eg: snapshot testing
-export const DocumentsProvider = (props) => (
-  <Provider inject={props.inject || [Documents]}>{props.children}</Provider>
+export const WorkoutsProvider = (props) => (
+  <Provider inject={props.inject || [Workouts]}>{props.children}</Provider>
 )
-DocumentsProvider.propTypes = {
+WorkoutsProvider.propTypes = {
   inject: array,
   children: any,
 }
 
 // We also leave the subscribe "to" flexible, so you can have full
 // control over your subscripton from outside of the module
-export const DocumentsSubscribe = (props) => (
-  <Subscribe to={props.to || [Documents]}>{props.children}</Subscribe>
+export const WorkoutsSubscribe = (props) => (
+  <Subscribe to={props.to || [Workouts]}>{props.children}</Subscribe>
 )
-DocumentsSubscribe.propTypes = {
+WorkoutsSubscribe.propTypes = {
   to: array,
   children: any,
 }

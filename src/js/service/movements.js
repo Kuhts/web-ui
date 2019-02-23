@@ -8,6 +8,7 @@ const urls = {
   view: (id) => `${base}/${id}/`,
 }
 const movements = {
+  lastUpdated,
   getAll,
   create,
   write,
@@ -17,6 +18,12 @@ const movements = {
 
 export {
   movements,
+}
+
+function lastUpdated() {
+  return fetch('api/movement/last-update', {
+    method: 'get',
+  })
 }
 
 function write(id, json) {
